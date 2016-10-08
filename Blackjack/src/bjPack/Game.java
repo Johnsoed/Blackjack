@@ -7,6 +7,8 @@ public class Game {
 public static void main(String args[]) { 
 	int k = 1;
 	Deck deck1 = new Deck();
+
+//tests deck creation
 	for (Card c :deck1.deckList) {
 		System.out.println(k);
 		System.out.println(c.toString());
@@ -38,9 +40,6 @@ public static void main(String args[]) {
 	System.out.println("");
 	System.out.print("dealer's hand is: ");
 	printList(dealerHand);
-	
-	
-	
 		}
 
 
@@ -49,7 +48,7 @@ static void printList(List<Card> dealerHand){
 	for (Card card :dealerHand) {
  		System.out.print(card.toString());
  		System.out.print("  ");
-	}
+ 		}
 	
  }
 

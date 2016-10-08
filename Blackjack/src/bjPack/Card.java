@@ -22,11 +22,7 @@ public class Card {
    /***********************************************************************
 	* Constructors
 	**********************************************************************/
-//	public Card() {
-//		super();
-//		// TODO Auto-generated constructor stub
-//	}
-
+	
     public Card(Rank value, Suit suit) {
 		super();
 		this.value = value;

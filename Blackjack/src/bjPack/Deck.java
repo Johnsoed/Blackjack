@@ -4,10 +4,9 @@ import java.util.*;
 import bjPack.Card.Rank;
 import bjPack.Card.Suit;
 public class Deck {
-static List<Card> deckList = new ArrayList<Card>();
+List<Card> deckList = new ArrayList<Card>();
 	
 	public Deck (){
-		int c = 0;
     	for(Suit suit: Suit.values()) {
     		for(Rank value: Rank.values()) {
     			deckList.add(new Card(value, suit));
