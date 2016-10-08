@@ -5,9 +5,12 @@ import java.util.List;
 
 public class Game {
 public static void main(String args[]) { 
+	int k = 1;
 	Deck deck1 = new Deck();
 	for (Card c :deck1.deckList) {
-//		System.out.println(c.toString());
+		System.out.println(k);
+		System.out.println(c.toString());
+		k++;
 	}
 	
 	int c= 1;
@@ -21,7 +24,7 @@ public static void main(String args[]) {
 
 		c++;
 	}
-	
+//	
 	//performs initial deal using fresh deck
 	Deck deck2 = new Deck();
 	List<Card> playerOneHand = new ArrayList<Card>();
@@ -35,20 +38,24 @@ public static void main(String args[]) {
 	tempCard = deck2.deal();
 	dealerHand.add(tempCard);
 	System.out.print("player one's hand is: ");
-	for (Card h :playerOneHand) {
- 		System.out.print(h.toString());
- 		System.out.print(", ");
-			}
+	printList(playerOneHand);
 	System.out.println("");
 	System.out.print("dealer's hand is: ");
-	for (Card h :dealerHand) {
- 		System.out.print(h.toString());
- 		System.out.print(" ");
-			}
+	printList(dealerHand);
 	
 	
 	
 		}
+
+
+static void printList(List<Card> dealerHand){
+	
+	for (Card card :dealerHand) {
+ 		System.out.print(card.toString());
+ 		System.out.print("  ");
+	}
+	
+ }
 
 
 
