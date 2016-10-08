@@ -29,14 +29,10 @@ public static void main(String args[]) {
 	Deck deck2 = new Deck();
 	List<Card> playerOneHand = new ArrayList<Card>();
 	List<Card> dealerHand = new ArrayList<Card>();
-	Card tempCard = deck2.deal();
-	playerOneHand.add(tempCard);
-	tempCard = deck2.deal();
-	dealerHand.add(tempCard);
-	tempCard = deck2.deal();
-	playerOneHand.add(tempCard);
-	tempCard = deck2.deal();
-	dealerHand.add(tempCard);
+	playerOneHand.add(deck2.deal());
+	dealerHand.add(deck2.deal());
+	playerOneHand.add(deck2.deal());
+	dealerHand.add(deck2.deal());
 	System.out.print("player one's hand is: ");
 	printList(playerOneHand);
 	System.out.println("");
