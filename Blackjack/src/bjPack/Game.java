@@ -40,7 +40,8 @@ public static void main(String args[]) {
 	System.out.println("");
 	System.out.print("dealer's hand is: ");
 	printList(dealerHand);
-	System.out.println(handCount(playerOneHand));
+	handCount(playerOneHand);
+	
 	
 	
 	
@@ -57,6 +58,8 @@ static void printList(List<Card> dealerHand){
 	
  }
 
+// takes a hand, iterates through the cards in the hand, and counts the values
+// of the cards, adding them and returning the hand count
 static int handCount(List<Card> hand){
 	int count = 0;
 	for(Card card :hand){
