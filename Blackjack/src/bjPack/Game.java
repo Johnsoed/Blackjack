@@ -40,6 +40,11 @@ public static void main(String args[]) {
 	System.out.println("");
 	System.out.print("dealer's hand is: ");
 	printList(dealerHand);
+	System.out.println(handCount(playerOneHand));
+	
+	
+	
+	
 		}
 
 
@@ -52,6 +57,51 @@ static void printList(List<Card> dealerHand){
 	
  }
 
-
-
+static int handCount(List<Card> hand){
+	int count = 0;
+	for(Card card :hand){
+		switch(card.rank()){
+		case TWO:
+			count += 2;
+			break;
+		case THREE:
+			count += 3;
+			break;
+		case FOUR:
+			count += 4;
+			break;
+		case FIVE:
+			count += 5;
+			break;
+		case SIX:
+			count += 6;
+			break;
+		case SEVEN:
+			count += 7;
+			break;
+		case EIGHT:
+			count += 8;
+			break;
+		case NINE:
+			count += 9;
+			break;
+		case TEN:
+			count += 10;
+			break;
+		case JACK:
+			count += 10;
+			break;
+		case QUEEN:
+			count += 10;
+			break;
+		case KING:
+			count += 10;
+			break;
+		case ACE:
+			count += 11;
+			break;
+		}
+	}
+	return count;
+}
 }
