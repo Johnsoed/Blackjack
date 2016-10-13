@@ -58,8 +58,10 @@ static void printList(List<Card> dealerHand){
 	
  }
 
-/**** takes a hand, iterates through the cards in the hand, and counts the values
- of the cards, adding them and returning the hand count****/
+/*************************************************************************
+   *takes a hand, iterates through the cards in the hand, and counts the values
+   *of the cards, adding them and returning the hand count
+*************************************************************************/
 static int handCount(List<Card> hand){
 	int count = 0;
 	for(Card card :hand){
