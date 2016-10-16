@@ -37,17 +37,12 @@ public static void main(String args[]) {
 	dealerHand.add(deck2.deal());
 	System.out.print("player one's hand is: ");
 	printList(playerOneHand);
+	printList(dealerHand);
 	System.out.println("");
 	System.out.print("dealer's hand is: ");
 	
 	//System.out.println(handCount(playerOneHand));
-	int score = handCount(dealerHand);
-	while(score < 22){
-		dealerHand.add(deck2.deal());
-		score = handCount(dealerHand);
-	}
-	printList(dealerHand);
-	System.out.println(handCount(dealerHand));
+
 	
 	
 	
