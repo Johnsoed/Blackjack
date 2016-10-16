@@ -15,32 +15,39 @@ public static void main(String args[]) {
 		k++;
 	}
 	
-	int c= 1;
-	for(int i = 0; i<52; i++) {
-
-//tests deal
-		Card newCard;
-		newCard = deck1.deal(); 
-		System.out.print("card " + c + " ");
-		System.out.println(newCard.toString());
-
-		c++;
-	}
+//	int c= 1;
+//	for(int i = 0; i<52; i++) {
+//
+////tests deal
+//		Card newCard;
+//		newCard = deck1.deal(); 
+//		System.out.print("card " + c + " ");
+//		System.out.println(newCard.toString());
+//
+//		c++;
+//	}
 //	
 	//performs initial deal using fresh deck
 	Deck deck2 = new Deck();
 	List<Card> playerOneHand = new ArrayList<Card>();
 	List<Card> dealerHand = new ArrayList<Card>();
 	playerOneHand.add(deck2.deal());
-	dealerHand.add(deck2.deal());
 	playerOneHand.add(deck2.deal());
+	dealerHand.add(deck2.deal());
 	dealerHand.add(deck2.deal());
 	System.out.print("player one's hand is: ");
 	printList(playerOneHand);
 	System.out.println("");
 	System.out.print("dealer's hand is: ");
+	
+	//System.out.println(handCount(playerOneHand));
+	int score = handCount(dealerHand);
+	while(score < 22){
+		dealerHand.add(deck2.deal());
+		score = handCount(dealerHand);
+	}
 	printList(dealerHand);
-	handCount(playerOneHand);
+	System.out.println(handCount(dealerHand));
 	
 	
 	
@@ -48,6 +55,32 @@ public static void main(String args[]) {
 	
 		}
 
+static boolean dealerHit(List <Card> dealerHand){
+	int count = handCount(dealerHand);
+	if(count < 17){
+		return true;
+	}
+	else
+		return false;
+	
+}
+
+static boolean hasAce(List<Card> dealerHand){
+	int bool = 0;
+		for(Card card :dealerHand){
+			switch(card.rank()){
+			case ACE:
+				bool = 1;
+				break;
+			}
+		
+		}
+		if(bool == 1){
+			return true;
+			}
+		else 
+			return false;
+}
 
 static void printList(List<Card> dealerHand){
 	
@@ -107,6 +140,8 @@ static int handCount(List<Card> hand){
 			break;
 		}
 	}
+	if(hasAce(hand)==true && count > 21)
+		count -= 10;
 	return count;
 }
 }
