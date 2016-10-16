@@ -35,7 +35,6 @@ public class Card {
     public Rank rank() {return value;}
     public Suit suit() {return suit;}
     public String toString() {return value + " of " + suit;}
-    
 
 
 }

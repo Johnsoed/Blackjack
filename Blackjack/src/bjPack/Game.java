@@ -50,7 +50,7 @@ public static void main(String args[]) {
 	
 		}
 
-static boolean dealerHit(List <Card> dealerHand){
+public static boolean dealerHit(List <Card> dealerHand){
 	int count = handCount(dealerHand);
 	if(count < 17){
 		return true;
@@ -60,7 +60,7 @@ static boolean dealerHit(List <Card> dealerHand){
 	
 }
 
-static boolean hasAce(List<Card> dealerHand){
+public static boolean hasAce(List<Card> dealerHand){
 	int bool = 0;
 		for(Card card :dealerHand){
 			switch(card.rank()){
