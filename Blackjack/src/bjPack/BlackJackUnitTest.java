@@ -61,5 +61,17 @@ public class BlackJackUnitTest {
 		assertFalse(game.dealerHit(dealerHand));
 	}
 	
-
+	@Test
+	public void gameTest(){
+		Game game = new Game();
+		Deck deck2 = new Deck();
+		List<Card> playerOneHand = new ArrayList<Card>();
+		List<Card> dealerHand = new ArrayList<Card>();
+		playerOneHand.add(deck2.deal());
+		playerOneHand.add(deck2.deal());
+		dealerHand.add(deck2.deal());
+		dealerHand.add(deck2.deal());
+		assertTrue(dealerHand != null);
+		assertTrue(playerOneHand != null);
+	}
 }
