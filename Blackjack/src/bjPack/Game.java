@@ -43,7 +43,7 @@ public class Game {
 			String hitStay = "";
 			String newGame = "";
 			//the game
-			while (bust == false && (playerHit == true || 
+			while (bust == false && (playerHit == true || //make into contructor
 					dealerHits == true)) {
 				System.out.println("");
 				//player prompts
@@ -59,7 +59,7 @@ public class Game {
 				//System.out.println(playerHit);//debugging
 				//System.out.println(hitStay);//debugging
 				
-				//player hits
+				//player hits -- make into method
 				if (bust == false && playerHit == true){ 
 					playerOneHand.add(deck2.deal());
 					playerScore = handCount(playerOneHand);
