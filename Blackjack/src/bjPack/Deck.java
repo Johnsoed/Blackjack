@@ -14,9 +14,9 @@ public class Deck {
 	/*********************************************************************
 	 * Deck() creates an array of Card objects and shuffles them. 
 	 *********************************************************************/
-	public Deck (){
-    	for(Suit suit: Suit.values()) {
-    		for(Rank value: Rank.values()) {
+	public Deck() {
+    	for ( Suit suit: Suit.values() ) {
+    		for ( Rank value: Rank.values() ) {
     			deckList.add(new Card(value, suit));
     		}
     	}
@@ -24,7 +24,7 @@ public class Deck {
 	}
 	
 	/*********************************************************************
-	 * deal() is used to deal a single card from the deck. The decks
+	 * Deal() is used to deal a single card from the deck. The decks
 	 * size is revalued to take into account the missing card. 
 	 * @return Card a card from the deck. 
 	 *********************************************************************/
@@ -40,14 +40,14 @@ public class Deck {
 	 * @return deckCount an int that represents the current size of the 
 	 * deck.
 	 *********************************************************************/
-	public int deckCount(){
+	public final int deckCount() {
 		return deckList.size();
 	}
 	
 	/*********************************************************************
 	 * Shuffles the deck. 
 	 *********************************************************************/
-	public void shuffleDeck(){
+	public final void shuffleDeck(){
 		Collections.shuffle(deckList);
 	}
 
