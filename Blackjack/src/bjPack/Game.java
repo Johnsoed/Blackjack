@@ -5,29 +5,42 @@ import java.util.List;
 
 public class Game {
 	
-	private boolean gameOver = false;
+	private boolean gameOver;
 	
-	private boolean roundOver = false;
+	private boolean roundOver;
 	
-	private List<Player> aiPlayers = new ArrayList<Player>();
+	private List<Player> aiPlayers;
 	
-	private Deck mainDeck = new Deck();
+	private Deck mainDeck;
 	
-	Player dealer = new Player();
+	Player dealer;
 	
-	Player user = new Player();
+	Player user;
 	
 	public Game() {
 		super();
-		// TODO Auto-generated constructor stub
+		gameOver = false;
+		roundOver = false;
+		aiPlayers = new ArrayList<Player>();
+		mainDeck = new Deck();
+		dealer = new Player();
+		user = new Player();
 	}
 
-	public Game(boolean gameOver, List<Player> aiPlayers, Deck mainDeck) {
+	
+	
+public Game(boolean gameOver, boolean roundOver, List<Player> aiPlayers, Deck mainDeck, Player dealer,
+			Player user) {
 		super();
 		this.gameOver = gameOver;
+		this.roundOver = roundOver;
 		this.aiPlayers = aiPlayers;
 		this.mainDeck = mainDeck;
+		this.dealer = dealer;
+		this.user = user;
 	}
+
+
 
 //	while(!gameOver){
 		//first round
@@ -97,4 +110,34 @@ public class Game {
 			user.playerLose();
 	}
 
+	public boolean stayBustWin(){
+		if (player1.userHit == false && dealer.playerHit() == false) {
+			return false; 
+		}
+		
+		if (player1.playerBust() == true && dealer.playerBust() == true)
+			return true;
+		if (player1.blackJack() == true || dealer.blackJack() == true) {
+			return true;
+		}
+		
+		if (dealer.playerBust() == true) {
+			return true;
+		}
+		
+		return false; 			
+	}
+	
+	public void Round() {
+		if (player1.userHit == true && player1.playerBust() == false) {
+		player1.addCard(deck.deal());	
+		}
+		
+		if (dealer.playerHit() == true && dealer.playerBust() == false)
+		{
+			dealer.addCard(deck.deal());
+		}
+	} 
+	
+	
 }

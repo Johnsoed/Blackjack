@@ -6,6 +6,7 @@ public class Player {
 	Hand hand;
 	int points = 100;
 	int bet = 0;
+	boolean userHit; 
 	public Player(){
 		super();
 		hand = new Hand();
@@ -40,15 +41,15 @@ public class Player {
 			return false;
 	}
 	
-/*	*//************************************************************************
+	/******************************************************************
 	 * printList() prints out a particular hand
-	 ************************************************************************//*
+	 *****************************************************************/
 	public void printList(){
-		for () {
+		for (Card card : hand){
 	 		System.out.print(card.toString());
 	 		System.out.print("  ");
 	 		}
-	 }*/
+	 }
 	
 	public boolean blackJack(){
 		if(handValue() == 21){
@@ -80,6 +81,10 @@ public class Player {
 		points += (bet * 2);
 	}
 	
+	public void addCard(Card card) {
+		hand.AddtoHand(card);
+	}
+	
 	public void playerLose(){
 		bet = 0;
 	}
@@ -92,5 +97,9 @@ public class Player {
 		this.hand = hand;
 	}
 	
+	
+	public void userHit(boolean hit) {
+		userHit = hit;
+	}
 	
 }

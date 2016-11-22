@@ -2,7 +2,7 @@ package bjPack;
 
 import java.util.*;
 
-public class Hand{
+public class Hand implements Iterable<Card>{
 	
 	static List<Card> ihand;
 
@@ -98,5 +98,10 @@ public class Hand{
 				}
 			}
 			return bool;
+	}
+
+	@Override
+	public Iterator<Card> iterator() {
+		return null;
 	}
 }
