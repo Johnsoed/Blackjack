@@ -6,6 +6,7 @@ public class Player {
 	Hand hand = new Hand();
 	int points = 100;
 	int bet = 0;
+	boolean userHit; 
 	public Player(){
 		//Hand hand = new Hand();
 		this.hand = hand;
@@ -81,7 +82,16 @@ public class Player {
 		points += (bet * 2);
 	}
 	
+	public void addCard(Card card) {
+		hand.AddtoHand(card);
+	}
+	
 	public void playerLose(){
 		bet = 0;
 	}
+	
+	public void userHit(boolean hit) {
+		userHit = hit;
+	}
+	
 }
