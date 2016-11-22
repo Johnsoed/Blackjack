@@ -40,17 +40,6 @@ public class Game {
 		hand.AddtoHand(deck.deal());
 	}
 	
-	/************************************************************************
-	 * printList() prints out a particular hand
-	 * @param dealerHand
-	 ************************************************************************/
-	static void printList(List<Card> dealerHand){
-		for (Card card :dealerHand) {
-	 		System.out.print(card.toString());
-	 		System.out.print("  ");
-	 		}
-	 }
-	
 
 //	/************************************************************************
 //	 * hasAce() checks a hand for an Ace value and returns true if found
