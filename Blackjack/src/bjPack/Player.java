@@ -3,19 +3,18 @@ package bjPack;
 import java.util.List;
 
 public class Player {
-	Hand hand = new Hand();
+	Hand hand;
 	int points = 100;
 	int bet = 0;
 	public Player(){
-		//Hand hand = new Hand();
-		this.hand = hand;
-		
+		super();
+		hand = new Hand();
 	}
 	
 	public Player(Hand hand){
+		super();
 		this.hand = hand;
 	}
-	//has a hand
 	
 	public int handValue(){
 		return hand.handCount();
@@ -84,4 +83,14 @@ public class Player {
 	public void playerLose(){
 		bet = 0;
 	}
+
+	public Hand getHand() {
+		return hand;
+	}
+
+	public void setHand(Hand hand) {
+		this.hand = hand;
+	}
+	
+	
 }
