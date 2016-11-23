@@ -98,6 +98,14 @@ public class Player {
 	}
 	
 	
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
+	public void setBet(int bet) {
+		this.bet = bet;
+	}
+
 	public void userHit(boolean hit) {
 		userHit = hit;
 	}

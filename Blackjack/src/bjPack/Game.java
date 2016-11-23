@@ -137,6 +137,18 @@ public Game(boolean gameOver, boolean roundOver, List<Player> aiPlayers, Deck ma
 		{
 			dealer.addCard(deck.deal());
 		}
+	}
+
+
+
+	public List<Player> getAiPlayers() {
+		return aiPlayers;
+	}
+
+
+
+	public void setAiPlayers(List<Player> aiPlayers) {
+		this.aiPlayers = aiPlayers;
 	} 
 	
 	
