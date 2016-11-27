@@ -2,9 +2,9 @@ package bjPack;
 
 import java.util.*;
 
-public class Hand implements Iterable<Card>{
+public class Hand{
 	
-	static List<Card> ihand;
+	List<Card> ihand;
 
 	public Hand() {
 		super();
@@ -14,7 +14,7 @@ public class Hand implements Iterable<Card>{
 	public Hand(List<Card> hand) {
 		super();
 		ihand = new ArrayList<Card>();
-		Hand.ihand = hand;
+		ihand = hand;
 	}
 
 	public void AddtoHand(Card input){
@@ -31,7 +31,7 @@ public class Hand implements Iterable<Card>{
 	* @param hand the hand you wish to count
 	* @return handCount int representing the hands value
 	*************************************************************************/
-	static int handCount(){
+	int handCount(){
 		int count = 0;
 		for(Card card :ihand){
 			switch(card.rank()){
@@ -86,7 +86,7 @@ public class Hand implements Iterable<Card>{
 	 * @param hand the hand to be checked for an Ace
 	 * @return boolean true if Ace Card() is found in hand
 	 ************************************************************************/
-	public static boolean hasAce(){
+	public boolean hasAce(){
 		boolean bool = false;
 			for(Card card :ihand){
 				switch(card.rank()){
@@ -100,8 +100,8 @@ public class Hand implements Iterable<Card>{
 			return bool;
 	}
 
-	@Override
-	public Iterator<Card> iterator() {
-		return null;
-	}
+//	@Override
+//	public Iterator<Card> iterator() {
+//		return null;
+//	}
 }

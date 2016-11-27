@@ -9,17 +9,13 @@ import bjPack.Card.Suit;
 public class Deck {
 	
 	/*the Arraylist that holds the deck*/	
-	List<Card> deckList = new ArrayList<Card>();
+	List<Card> deckList;
 	
 	/*********************************************************************
 	 * Deck() creates an array of Card objects and shuffles them. 
 	 *********************************************************************/
 	public Deck() {
-    	for ( Suit suit: Suit.values() ) {
-    		for ( Rank value: Rank.values() ) {
-    			deckList.add(new Card(value, suit));
-    		}
-    	}
+    	newDeck();
  		Collections.shuffle(deckList);
 	}
 	
@@ -29,11 +25,20 @@ public class Deck {
 	 * @return Card a card from the deck. 
 	 *********************************************************************/
 	public Card deal(){
-		int deckSize = deckList.size();
-		Card dealtCard;
-		dealtCard = deckList.get(0);
-		deckList = deckList.subList(1, deckSize);
-		return dealtCard;
+		//safety. so we don't pull from empty deck
+		if(deckCount() > 0){
+			Card dealtCard;
+			dealtCard = deckList.get(0);
+			deckList = deckList.subList(1, deckCount());
+			return dealtCard;
+		}
+		else{
+			newDeck();
+			Card dealtCard;
+			dealtCard = deckList.get(0);
+			deckList = deckList.subList(1, deckCount());
+			return dealtCard;
+		}
 	}
 	
 	/*********************************************************************
@@ -50,7 +55,15 @@ public class Deck {
 	public final void shuffleDeck(){
 		Collections.shuffle(deckList);
 	}
-
+	
+	public void newDeck(){
+		deckList = new ArrayList<Card>();
+		for ( Suit suit: Suit.values() ) {
+    		for ( Rank value: Rank.values() ) {
+    			deckList.add(new Card(value, suit));
+    		}
+    	}
+	}
 
 }
 

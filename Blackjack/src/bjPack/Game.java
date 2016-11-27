@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-	
 	private boolean gameOver;
 	
 	private boolean roundOver;
 	
-	private List<Player> aiPlayers;
+	private ArrayList<Player> aiPlayers;
 	
 	private Deck mainDeck;
 	
@@ -27,128 +26,167 @@ public class Game {
 		user = new Player();
 	}
 
-	
-	
-public Game(boolean gameOver, boolean roundOver, List<Player> aiPlayers, Deck mainDeck, Player dealer,
-			Player user) {
+	public Game(int aiNum){
 		super();
-		this.gameOver = gameOver;
-		this.roundOver = roundOver;
-		this.aiPlayers = aiPlayers;
-		this.mainDeck = mainDeck;
-		this.dealer = dealer;
-		this.user = user;
+		gameOver = false;
+		roundOver = false;
+		mainDeck = new Deck();
+		dealer = new Player();
+		user = new Player();
+		if(aiNum > 0){
+			aiPlayers = new ArrayList<Player>(aiNum);
+		}
+		else{
+			aiPlayers = null;
+		}
 	}
-
-
-
-//	while(!gameOver){
-		//first round
-		//check AI hit/stay
-		//check player hit/stay
-		//check dealer hit/stay
 	
-		//all other rounds
-		//check player bust --lose condition
-		//check dealer bust -- win condition
-		//check Ai player bust -- set player to null
-		
-		//check Ai hit/stay
-		//check player hit/stay
-		//check dealer hit/stay
-	//all stay = check all hands for winner - gameOver = true
-//	}
-	public void aiHit(){
-		roundOver = true;
-		for(Player aiPlayer: aiPlayers){
-			if(aiPlayer != null){
-				if(aiPlayer.playerHit()){
-					aiPlayer.getHand().AddtoHand(mainDeck.deal());
-					roundOver = false;
+	public void initialDeal(){
+		//safety. so we don't pull from too small a deck
+//		if(mainDeck.deckCount() < (4 + (aiPlayers.size() * 2) ) ){
+//			mainDeck.newDeck();
+//		}	
+		dealer.addCard(mainDeck.deal());
+		dealer.addCard(mainDeck.deal());
+		user.addCard(mainDeck.deal());
+		user.addCard(mainDeck.deal());
+		if(aiPlayers == null){
+			//do nothing
+		}
+		else{
+			for(Player aiPlayer: aiPlayers){
+				if(aiPlayer != null){
+					aiPlayer.addCard(mainDeck.deal());
+					aiPlayer.addCard(mainDeck.deal());
 				}
 			}
 		}
 	}
-	
-
-	/*****************************************************************
-	 * DealerHit() is the A.I. for the dealer. Right now, dealer
-	 * only has one option, to hit if hand count is less than 17. In all 
-	 * other cases dealer stays.
-	 * @param dealerHand dealers hand
-	 * @return boolean true if dealer can hit
-	 *****************************************************************/
-	public void dealerHit(){
-		if(dealer.handValue() < 17){
-			dealer.getHand().AddtoHand(mainDeck.deal());
-			roundOver = false;
-		}
-		else
-			roundOver = true;
-	}
-	
-	
-	private void Deal1(Hand hand){
-		hand.AddtoHand(mainDeck.deal());
-	}
-	
-	private void aiWinCheck(){
-		for(Player aiPlayer : aiPlayers){
-			if(aiPlayer.handValue() > dealer.handValue()){
-				aiPlayer.playerWin();
+	public void checkNaturals(){
+		//dealer has blackJack - round over and only players with blackjack get money back
+		if(dealer.blackJack()){
+			//check AI player for blackJack
+			for(Player aiPlayer: aiPlayers){
+				if(aiPlayer.blackJack()){
+					aiPlayer.playerStandOff();
+				}
+				else
+					aiPlayer.playerLose();
+			}
+			//check user for blackJack
+			if(user.blackJack()){
+				user.playerStandOff();
 			}
 			else
-				aiPlayer.playerLose();
+				user.playerLose();
+		}
+		//check for player naturals
+		else{
+			//AI player naturals
+			for(Player aiPlayer: aiPlayers){
+				if(aiPlayer.blackJack()){
+					aiPlayer.playerNatural();
+				}
+			}
+			//user natural
+			if(user.blackJack()){
+				user.playerNatural();
+			}
 		}
 	}
 	
+	public void userHitStay(boolean hit){
+		if(hit){
+			user.getHand().AddtoHand(mainDeck.deal());
+		}
+	}
+	//performs AI players hit/stay
+	public void aiHitStay(){
+		if(aiPlayers == null){
+			//do nothing
+		}
+		else{
+			for(Player aiPlayer: aiPlayers){
+				if(aiPlayer != null){
+					if(aiPlayer.playerHit()){
+						aiPlayer.getHand().AddtoHand(mainDeck.deal());
+					}
+				}
+			}
+		}
+	}
+	//performs dealer hit/stay
+	public void dealerHitStay(){
+		if(dealer.playerHit()){
+			dealer.getHand().AddtoHand(mainDeck.deal());
+		}
+	}
+	//checks if user won, tied, or lost; sets values
 	private void userWinCheck(){
-		if(user.handValue() > dealer.handValue()){
+		if(user.playerBust()){
+			user.playerLose();
+		}
+		else if(user.handValue() > dealer.handValue() || dealer.playerBust()){
 			user.playerWin();
+		}
+		else if(user.handValue() == dealer.handValue()){
+			user.playerStandOff();
 		}
 		else
 			user.playerLose();
 	}
-
-	public boolean stayBustWin(){
-		if (player1.userHit == false && dealer.playerHit() == false) {
-			return false; 
+	//checks if AIs won, tied, or lost; sets values
+	private void aiWinCheck(){
+		if(aiPlayers == null){
+			//do nothing
 		}
-		
-		if (player1.playerBust() == true && dealer.playerBust() == true)
-			return true;
-		if (player1.blackJack() == true || dealer.blackJack() == true) {
-			return true;
-		}
-		
-		if (dealer.playerBust() == true) {
-			return true;
-		}
-		
-		return false; 			
-	}
-	
-	public void Round() {
-		if (player1.userHit == true && player1.playerBust() == false) {
-		player1.addCard(deck.deal());	
-		}
-		
-		if (dealer.playerHit() == true && dealer.playerBust() == false)
-		{
-			dealer.addCard(deck.deal());
+		else{
+			for(Player aiPlayer : aiPlayers){
+				if(aiPlayer.playerBust()){
+					aiPlayer.playerLose();
+				}
+				else if(aiPlayer.handValue() > dealer.handValue() || dealer.playerBust()){
+					aiPlayer.playerWin();
+				}
+				else if(aiPlayer.handValue() == dealer.handValue()){
+					aiPlayer.playerStandOff();
+				}
+				else
+					aiPlayer.playerLose();
+			}
 		}
 	}
-
-
-
+	//performs non-users hit/stay checks and actions
+	public void nonUserHitStay(){
+		aiHitStay();
+		dealerHitStay();		
+	}
+	//performs win/loss checks and actions
+	public void setWinLoss(){
+		userWinCheck();
+		aiWinCheck();
+	}
 	public List<Player> getAiPlayers() {
 		return aiPlayers;
 	}
-
-
-
-	public void setAiPlayers(List<Player> aiPlayers) {
+	public void setAiPlayers(ArrayList<Player> aiPlayers) {
 		this.aiPlayers = aiPlayers;
+	}
+
+	public boolean isGameOver() {
+		return gameOver;
+	}
+
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
+	}
+
+	public boolean isRoundOver() {
+		return roundOver;
+	}
+
+	public void setRoundOver(boolean roundOver) {
+		this.roundOver = roundOver;
 	} 
 	
 	
