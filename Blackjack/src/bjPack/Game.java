@@ -8,7 +8,7 @@ public class Game {
 	
 	private boolean roundOver;
 	
-	private ArrayList<Player> aiPlayers;
+	ArrayList<Player> aiPlayers;
 	
 	private Deck mainDeck;
 	
@@ -27,25 +27,18 @@ public class Game {
 	}
 
 	public Game(int aiNum){
-		super();
-		gameOver = false;
-		roundOver = false;
-		mainDeck = new Deck();
-		dealer = new Player();
-		user = new Player();
-		if(aiNum > 0){
-			aiPlayers = new ArrayList<Player>(aiNum);
-		}
-		else{
-			aiPlayers = null;
+		this();
+		for(int i = 1; i <= aiNum; i++){
+			Player add = new Player();
+			aiPlayers.add(add);
 		}
 	}
 	
 	public void initialDeal(){
 		//safety. so we don't pull from too small a deck
-//		if(mainDeck.deckCount() < (4 + (aiPlayers.size() * 2) ) ){
-//			mainDeck.newDeck();
-//		}	
+		if(mainDeck.deckCount() < (4 + (aiPlayers.size() * 2) ) ){
+			mainDeck.newDeck();
+		}	
 		dealer.addCard(mainDeck.deal());
 		dealer.addCard(mainDeck.deal());
 		user.addCard(mainDeck.deal());
@@ -187,6 +180,14 @@ public class Game {
 
 	public void setRoundOver(boolean roundOver) {
 		this.roundOver = roundOver;
+	}
+
+	public Deck getMainDeck() {
+		return mainDeck;
+	}
+
+	public void setMainDeck(Deck mainDeck) {
+		this.mainDeck = mainDeck;
 	} 
 	
 	
