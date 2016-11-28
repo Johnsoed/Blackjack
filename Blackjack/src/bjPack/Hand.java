@@ -99,6 +99,10 @@ public class Hand{
 			}
 			return bool;
 	}
+	
+	public Card getCard(int cardNum){
+		return ihand.get(cardNum);
+	}
 
 //	@Override
 //	public Iterator<Card> iterator() {
