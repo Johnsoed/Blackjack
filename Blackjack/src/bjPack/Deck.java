@@ -3,6 +3,7 @@
 * @author Logan Crowe, Edward Johnson, Anthony Dowling
 ***************************************************************************/
 package bjPack;
+import java.io.IOException;
 import java.util.*;
 import bjPack.Card.Rank;
 import bjPack.Card.Suit;
@@ -13,8 +14,9 @@ public class Deck {
 	
 	/*********************************************************************
 	 * Deck() creates an array of Card objects and shuffles them. 
+	 * @throws IOException 
 	 *********************************************************************/
-	public Deck() {
+	public Deck() throws IOException {
     	newDeck();
  		Collections.shuffle(deckList);
 	}
@@ -23,8 +25,9 @@ public class Deck {
 	 * Deal() is used to deal a single card from the deck. The decks
 	 * size is revalued to take into account the missing card. 
 	 * @return Card a card from the deck. 
+	 * @throws IOException 
 	 *********************************************************************/
-	public Card deal(){
+	public Card deal() throws IOException{
 		//safety. so we don't pull from empty deck
 		if(deckCount() > 0){
 			Card dealtCard;
@@ -56,7 +59,7 @@ public class Deck {
 		Collections.shuffle(deckList);
 	}
 	
-	public void newDeck(){
+	public void newDeck() throws IOException{
 		deckList = new ArrayList<Card>();
 		for ( Suit suit: Suit.values() ) {
     		for ( Rank value: Rank.values() ) {

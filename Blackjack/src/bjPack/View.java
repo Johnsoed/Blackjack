@@ -2,11 +2,14 @@ package bjPack;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class View extends JFrame{
 	
-	private static Scanner input;
+	
+	
+//	private static Scanner input;
 	JPanel topPanel = new JPanel();
 	JPanel dcardPanel = new JPanel();
 	JPanel pcardPanel = new JPanel();
@@ -18,8 +21,8 @@ public class View extends JFrame{
 	JLabel dealerlabel = new JLabel();
 	JLabel playerlabel = new JLabel();
 
-	Game game = new Game(); 
-
+	 Game game;
+	 
 	/*************************************************************
     the labels to represent the cards for the game
 	*************************************************************/
@@ -33,9 +36,10 @@ public class View extends JFrame{
 
     /*************************************************************
      Constructs the screen
+     * @throws IOException 
     *************************************************************/
-    public View(){  
-	    
+    public View() throws IOException{  
+	    game = new Game();
 	    topPanel.setBackground(new Color(0, 122, 0));
 	    dcardPanel.setBackground(new Color(0, 122, 0));
 	    pcardPanel.setBackground(new Color(0, 122, 0));
@@ -107,7 +111,12 @@ public class View extends JFrame{
 	    
 	    dealercard0 = new JLabel(new ImageIcon("back.jpg"));
 
-	    game.initialDeal();
+	    try {
+			game.initialDeal();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 //	    //to iterate set and get current dealer cards
 //	    Card dcard=null;
@@ -173,15 +182,22 @@ public class View extends JFrame{
 	   @param e Hit button pressed
 	*************************************************************/
 	class hitbutton implements ActionListener { 
-	  public void actionPerformed(ActionEvent e) {
-
-	    
-	    Card hitcard = game.getMainDeck().deal();
-	    playercardhit = new JLabel(hitcard.getimage());
+	  public void actionPerformed(ActionEvent e){
+		  Card hitcard;
+			try {
+				hitcard = game.getMainDeck().deal();
+			} catch (IOException e1) {
+		
+				hitcard = null;
+				e1.printStackTrace();
+			}
+	
+	    ImageIcon hitCardImage = new ImageIcon(hitcard.getImage());
+	    playercardhit = new JLabel(hitCardImage);
 	    pcardPanel.add(playercardhit);
 	    pcardPanel.repaint();
 	 
-	    if(game.bust(player))     
+	    if(game.user.playerBust())     
 	    {
 	      winlosebox.setText("Bust");
 	      hitbutton.setEnabled(false);
@@ -190,7 +206,7 @@ public class View extends JFrame{
 	      playagainbutton.setEnabled(true);
 	    }
 
-	    playerlabel.setText("  Player:   " + game.handValue(player));
+	    playerlabel.setText("  Player:   " + game.user.getHand().handCount());
 
 	  }
 	}//end hitbutton
@@ -208,25 +224,25 @@ public class View extends JFrame{
 	    dcardPanel.remove(dealercard0);
 	    dcardPanel.add(dealercard1);
 
-	    dealer = game.dealerPlays();
+	    //dealer = game.dealerPlays();
 	    dcardPanel.removeAll();
 	    dcardPanel.add(dealerlabel);
 	    dealerlabel.setText(" " + dealerlabel.getText());  
 	    
 	    //iterate through cards and re-display
 	    Card dhitcard = null;
-	    Iterator<Card> scan = (dealer.inHand).iterator();
-	    while (scan.hasNext())
-	    {
-	        dhitcard = scan.next();
-	        dealercardhit = new JLabel(dhitcard.getimage());
-	        dcardPanel.add(dealercardhit);
-	    }
-	    
-	    dealerlabel.setText("Dealer: " + game.handValue(dealer));
-	    playerlabel.setText("Player: " + game.handValue(player));
+//	    Iterator<Card> scan = (dealer.inHand).iterator();
+//	    while (scan.hasNext())
+//	    {
+//	        dhitcard = scan.next();
+//	        dealercardhit = new JLabel(dhitcard.getimage());
+//	        dcardPanel.add(dealercardhit);
+//	    }
+//	    
+	    dealerlabel.setText("Dealer: " + game.dealer.getHand().handCount());
+	    playerlabel.setText("Player: " + game.user.getHand().handCount());
 
-	    winlosebox.setText(game.winner());
+	    winlosebox.setText(game.user.endMessage);
 	    hitbutton.setEnabled(false);
 	    staybutton.setEnabled(false);
 	    
@@ -246,9 +262,14 @@ public class View extends JFrame{
 	    dealerlabel.setText("Dealer: ");
 	    playerlabel.setText("Player: ");
 	    winlosebox.setText(""); 
-	    dealer = new Hand();
-	    player = new Hand();
-	    game=new Blackjack(dealer, player);
+	    //dealer = new Hand();
+	    //player = new Hand();
+	    try {
+			game = new Game();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 
 	    dcardPanel.removeAll();
 	    pcardPanel.removeAll();
@@ -260,7 +281,7 @@ public class View extends JFrame{
 
 	  }
 	}//end playagainbutton
-	}//end BlackjackGUI
+}//end BlackjackGUI
 	
 	
 	
@@ -417,4 +438,4 @@ public class View extends JFrame{
 	//views for players/AI
 	
 	//
-}
+//}

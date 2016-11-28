@@ -1,5 +1,6 @@
 package bjPack;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class Game {
 	
 	Player user;
 	
-	public Game() {
+	public Game() throws IOException {
 		super();
 		gameOver = false;
 		roundOver = false;
@@ -26,7 +27,7 @@ public class Game {
 		user = new Player();
 	}
 
-	public Game(int aiNum){
+	public Game(int aiNum) throws IOException{
 		this();
 		for(int i = 1; i <= aiNum; i++){
 			Player add = new Player();
@@ -34,7 +35,7 @@ public class Game {
 		}
 	}
 	
-	public void initialDeal(){
+	public void initialDeal() throws IOException{
 		//safety. so we don't pull from too small a deck
 		if(mainDeck.deckCount() < (4 + (aiPlayers.size() * 2) ) ){
 			mainDeck.newDeck();
@@ -88,13 +89,13 @@ public class Game {
 		}
 	}
 	
-	public void userHitStay(boolean hit){
+	public void userHitStay(boolean hit) throws IOException{
 		if(hit){
 			user.getHand().AddtoHand(mainDeck.deal());
 		}
 	}
 	//performs AI players hit/stay
-	public void aiHitStay(){
+	public void aiHitStay() throws IOException{
 		if(aiPlayers == null){
 			//do nothing
 		}
@@ -109,7 +110,7 @@ public class Game {
 		}
 	}
 	//performs dealer hit/stay
-	public void dealerHitStay(){
+	public void dealerHitStay() throws IOException{
 		if(dealer.playerHit()){
 			dealer.getHand().AddtoHand(mainDeck.deal());
 		}
@@ -150,7 +151,7 @@ public class Game {
 		}
 	}
 	//performs non-users hit/stay checks and actions
-	public void nonUserHitStay(){
+	public void nonUserHitStay() throws IOException{
 		aiHitStay();
 		dealerHitStay();		
 	}

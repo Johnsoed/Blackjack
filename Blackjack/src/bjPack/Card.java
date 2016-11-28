@@ -8,6 +8,12 @@
 
 package bjPack;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 public class Card {
 	/*enumerated Rank values*/
 	public enum Rank {TWO, THREE, FOUR, FIVE, SIX, SEVEN,
@@ -18,6 +24,8 @@ public class Card {
 	private final Rank value;
 	/*variable for objects Suit*/
 	private final Suit suit;
+	
+	private final BufferedImage image;
 
    /***********************************************************************
 	* Constructors
@@ -27,10 +35,12 @@ public class Card {
      * @param value the rank value of the object
      * @param suit the suit value of the object
      *********************************************************************/
-    public Card(Rank value, Suit suit) {
+    public Card(Rank value, Suit suit) throws IOException {
 		super();
 		this.value = value;
 		this.suit = suit;
+		File imageFile = new File("src/Images", value + "-" + suit + ".png");
+		this.image = ImageIO.read(imageFile);
 	}
    /***********************************************************************
 	* Getters and Setters
@@ -47,4 +57,10 @@ public class Card {
      * @see java.lang.Object#toString()
      *********************************************************************/
     public String toString() {return value + " of " + suit;}
+    
+	public BufferedImage getImage() {
+		return image;
+	}
+    
+    
 }
