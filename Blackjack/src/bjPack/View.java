@@ -18,11 +18,11 @@ JPanel ai2Cards = new JPanel();
 JLabel ai1Name = new JLabel("Ai 1");
 JLabel ai2Name = new JLabel("Ai 2");
 
-JLabel[] playersHand = new JLabel[6];
-JLabel[] dealersHand = new JLabel [6];
+JLabel[] playersHand = new JLabel[8];
+JLabel[] dealersHand = new JLabel [8];
 JPanel aiPlayers = new JPanel(new BorderLayout());
-JLabel[] ai1Hand = new JLabel [6];
-JLabel[] ai2Hand = new JLabel [6];
+JLabel[] ai1Hand = new JLabel [8];
+JLabel[] ai2Hand = new JLabel [8];
 JLabel playerPoints = new JLabel();
 JLabel dealerPoints = new JLabel();
 JLabel ai1Points = new JLabel();
@@ -52,25 +52,25 @@ buttonPanel.add(hitButton);
 buttonPanel.add(stayButton);
 buttonPanel.add(start);
 JPanel mainPanel = new JPanel(new BorderLayout());
-for (int i = 0; i  < 6; i++) {
+for (int i = 0; i  < 8; i++) {
 	playersHand[i] = new JLabel(back);
 	playersHand[i].setPreferredSize(new Dimension(72,96));
 	playerCards.add(playersHand[i]);
 }
 playerCards.add(playerName);
-for (int i = 0; i  < 6; i++) {
+for (int i = 0; i  < 8; i++) {
 	dealersHand[i] = new JLabel(back);
 	dealersHand[i].setPreferredSize(new Dimension(72,96));
 	dealerCards.add(dealersHand[i]);
 }
 
-for (int i = 0; i  < 6; i++) {
+for (int i = 0; i  < 8; i++) {
 	ai1Hand[i] = new JLabel(back);
 	ai1Hand[i].setPreferredSize(new Dimension(72,96));
 	ai1Cards.add(ai1Hand[i]);
 }
 
-for (int i = 0; i  < 6; i++) {
+for (int i = 0; i  < 8; i++) {
 	ai2Hand[i] = new JLabel(back);
 	ai2Hand[i].setPreferredSize(new Dimension(72,96));
 	ai2Cards.add(ai2Hand[i]);
@@ -124,7 +124,7 @@ public void playerView() {
 		playersHand[i].setIcon(picture);
 		i++;
 		}
-	for (;i < 6; i++) {
+	for (;i < 8; i++) {
 		playersHand[i].setIcon(back);
 	}
 	}
@@ -137,7 +137,7 @@ public void playerView() {
 			dealersHand[i].setIcon(picture);
 			i++;
 		}	
-		for (;i < 6; i++) {
+		for (;i < 8; i++) {
 			dealersHand[i].setIcon(back);
 		}	
 }
@@ -152,7 +152,7 @@ public void playerView() {
 			aiHand[i].setIcon(picture);
 			i++;
 		}	
-		for (;i < 6; i++) {
+		for (;i < 8; i++) {
 			aiHand[i].setIcon(back);
 		}	
 }
