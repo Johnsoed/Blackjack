@@ -114,6 +114,14 @@ public class Game {
 		return  false;
 	}
 	
+	
+	public boolean check21s() {
+		if (player1.blackJack() == true || dealer.blackJack() == true) {
+			return true;
+		}
+		else return false; 
+	}
+	
 	public void reset() {
 		player1.hand.DiscardHand();
 		dealer.hand.DiscardHand();

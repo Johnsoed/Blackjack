@@ -104,13 +104,7 @@ aiPlayers.add(ai2Cards,BorderLayout.SOUTH);
 mainPanel.add(aiPlayers,BorderLayout.SOUTH);
 
 
-newGame.initialDeal();
-
-newGame.deck.shuffleDeck();
-playerView();
-dealerView();
-aiView(newGame.ai1,ai1Hand);
-aiView(newGame.ai2,ai2Hand);
+reset();
 
 
 }	
@@ -159,6 +153,7 @@ public void playerView() {
 	
 	
 public  void reset() {
+	
 	playerPoints.setText("" + newGame.player1.points);
 	dealerPoints.setText("" + newGame.dealer.points);
 
@@ -171,7 +166,13 @@ public  void reset() {
 		dealerView();
 		aiView(newGame.ai1,ai1Hand);
 		aiView(newGame.ai2,ai2Hand);
-
+	}
+	
+public void check() {
+		if (newGame.check21s() == true) {
+			endOfGame();
+			reset();
+}
 	}
 
 private class start implements ActionListener {
@@ -193,30 +194,7 @@ private class hitButton implements ActionListener {
 		aiView(newGame.ai2,ai2Hand);
 		Boolean endGame = newGame.stayBustWin();
 		if (endGame == true) {
-			Boolean message = newGame.winner(newGame.player1);
-			if (message == true){
-			JOptionPane.showMessageDialog(null,"player one has beaten the dealer");
-			}
-			if (message == false) {
-				JOptionPane.showMessageDialog(null,"player one has lost to the dealer");
-			}
-				message = newGame.winner(newGame.ai1);
-				if (message == true){
-				JOptionPane.showMessageDialog(null,"ai one has beaten the dealer");
-				}
-				if (message == false) {
-					JOptionPane.showMessageDialog(null,"ai one has lost to the dealer");
-				}
-
-				message = newGame.winner(newGame.ai2);
-				if (message == true){
-				JOptionPane.showMessageDialog(null,"ai two has beaten the dealer");
-				}
-				if (message == false) {
-					JOptionPane.showMessageDialog(null,"ai two has lost to the dealer");
-					}
-
-			reset();
+			endOfGame();
 		
 	
 		}
@@ -237,32 +215,7 @@ private class stayButton implements ActionListener {
 		aiView(newGame.ai2,ai2Hand);
 		Boolean endGame = newGame.stayBustWin();
 		if (endGame == true) {
-			Boolean message = newGame.winner(newGame.player1);
-			if (message == true){
-			JOptionPane.showMessageDialog(null,"player one has beaten the dealer");
-			}
-			if (message == false) {
-				JOptionPane.showMessageDialog(null,"player one has lost to the dealer");
-			}
-	
-				message = newGame.winner(newGame.ai1);
-				if (message == true){
-				JOptionPane.showMessageDialog(null,"ai one has beaten the dealer");
-				}
-				if (message == false) {
-					JOptionPane.showMessageDialog(null,"ai one has lost to the dealer");
-				}
-
-				message = newGame.winner(newGame.ai2);
-				if (message == true){
-				JOptionPane.showMessageDialog(null,"ai two has beaten the dealer");
-				}
-				if (message == false) {
-					JOptionPane.showMessageDialog(null,"ai two has lost to the dealer");
-					}
-
-
-			reset();
+			endOfGame();
 			break;
 		
 		
@@ -272,6 +225,37 @@ private class stayButton implements ActionListener {
  }
 	}
 	}
+
+
+public void endOfGame() {
+	Boolean message = newGame.winner(newGame.player1);
+	if (message == true){
+	JOptionPane.showMessageDialog(null,"player one has beaten the dealer");
+	}
+	if (message == false) {
+		JOptionPane.showMessageDialog(null,"player one has lost to the dealer");
+	}
+
+		message = newGame.winner(newGame.ai1);
+		if (message == true){
+		JOptionPane.showMessageDialog(null,"ai one has beaten the dealer");
+		}
+		if (message == false) {
+			JOptionPane.showMessageDialog(null,"ai one has lost to the dealer");
+		}
+
+		message = newGame.winner(newGame.ai2);
+		if (message == true){
+		JOptionPane.showMessageDialog(null,"ai two has beaten the dealer");
+		}
+		if (message == false) {
+			JOptionPane.showMessageDialog(null,"ai two has lost to the dealer");
+			}
+		reset();
+		check();
+}
+
+
 
 
 }
