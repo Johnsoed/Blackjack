@@ -94,7 +94,7 @@ public class Player {
 	}
 	
 	public void playerWin(){
-		points = points + (bet * 2);
+		points = points + (10 * 2);
 	}
 	
 	public void addCard(Card card) {
@@ -110,7 +110,7 @@ public class Player {
 	}
 	
 	public void dealerWin(int playerBet) {
-		points = points + playerBet * 2;
+		points = points + 10 * 2;
 		
 	}
 

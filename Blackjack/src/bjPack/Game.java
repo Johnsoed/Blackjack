@@ -112,6 +112,8 @@ public class Game {
 			dealer.dealerWin(player.bet);
 			return false;
 				}
+		player.playerLose();
+		dealer.dealerWin(player.bet);
 		return  false;
 	}
 	

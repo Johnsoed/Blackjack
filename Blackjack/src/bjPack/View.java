@@ -170,7 +170,6 @@ public  void reset() {
 public void check() {
 		if (newGame.check21s() == true) {
 			endOfGame();
-			reset();
 }
 	}
 
