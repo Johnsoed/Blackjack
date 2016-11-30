@@ -139,4 +139,13 @@ public class Game {
 			deck.shuffleDeck();
 		}
 	}
+	
+	
+	public void pointsReset() {
+		player1.points = 100;
+		dealer.points(500);
+		ai1.points(100);
+		ai2.points(100);
+		reset();
+	}
 }

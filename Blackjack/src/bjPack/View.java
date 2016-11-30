@@ -30,7 +30,7 @@ JLabel ai2Points = new JLabel();
 
 JButton hitButton = new JButton(); 
 JButton stayButton = new JButton();
-JButton start = new JButton();
+JButton restart = new JButton();
 JLabel dealerName = new JLabel("dealer");
 JLabel playerName = new JLabel("player");
 
@@ -42,15 +42,15 @@ ai1Cards.setBackground(new Color(0,122,0));
 ai2Cards.setBackground(new Color(0,122,0));
 buttonPanel.setLayout(new FlowLayout());
 
-start.setText("start");
+restart.setText("restart");
 hitButton.setText("hit");
 stayButton.setText("stay");
-start.addActionListener(new start());
+restart.addActionListener(new restart());
 hitButton.addActionListener(new hitButton());
 stayButton.addActionListener(new stayButton());
 buttonPanel.add(hitButton);
 buttonPanel.add(stayButton);
-buttonPanel.add(start);
+buttonPanel.add(restart);
 JPanel mainPanel = new JPanel(new BorderLayout());
 for (int i = 0; i  < 8; i++) {
 	playersHand[i] = new JLabel(back);
@@ -174,9 +174,14 @@ public void check() {
 }
 	}
 
-private class start implements ActionListener {
+private class restart implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		if (arg0.getSource() == restart) {
+			newGame.pointsReset(); 
+			reset();
+			
+		}
 		
 }
 		
