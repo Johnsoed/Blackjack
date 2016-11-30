@@ -8,6 +8,9 @@
 
 package bjPack;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 public class Card {
 	/*enumerated Rank values*/
 	public enum Rank {TWO, THREE, FOUR, FIVE, SIX, SEVEN,
@@ -18,6 +21,9 @@ public class Card {
 	private final Rank value;
 	/*variable for objects Suit*/
 	private final Suit suit;
+	
+	public String filename;
+	
 
    /***********************************************************************
 	* Constructors
@@ -27,10 +33,11 @@ public class Card {
      * @param value the rank value of the object
      * @param suit the suit value of the object
      *********************************************************************/
-    public Card(Rank value, Suit suit) {
+    public Card(Rank value, Suit suit, String filename) {
 		super();
 		this.value = value;
 		this.suit = suit;
+		this.filename = filename;
 	}
    /***********************************************************************
 	* Getters and Setters
