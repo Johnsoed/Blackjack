@@ -80,8 +80,9 @@ public class Player {
 			System.out.println("Not enough points to bet!");
 		}
 		else{
-			points -= 10;
-			bet += 10;
+			System.out.println("bet - " + bet);
+			points = points - 10;
+			bet = 10;
 		}
 	}
 
@@ -94,7 +95,7 @@ public class Player {
 	}
 	
 	public void playerWin(){
-		points += (bet * 2);
+		points = points + (bet * 2);
 	}
 	
 	public void addCard(Card card) {
@@ -102,11 +103,16 @@ public class Player {
 	}
 	
 	public void playerLose(){
-		bet = 0;
+		System.out.println("lost - " + bet);
 	}
 	
 	public void userHit(boolean hit) {
 		userHit = hit;
+	}
+
+	public void points(int i) {
+		points = i;
+		
 	}
 	
 }

@@ -10,17 +10,23 @@ public class Game {
 	Player ai1;
 	Player ai2;
 	public Game() {
-
+		
 		deck = new Deck();
 		deck.shuffleDeck();
 		player1 = new Player();
 		dealer = new Player();
 		ai1 = new Player();
 		ai2 = new Player();
+		dealer.points(500);
 
 	}
 	
 	public void initialDeal() {
+		player1.bet();
+		dealer.bet();		
+		ai1.bet();				
+		ai2.bet();			
+		
 		player1.addCard(deck.deal());
 		player1.hand.AddtoHand(deck.deal());
 		dealer.addCard(deck.deal());
@@ -88,16 +94,21 @@ public class Game {
 	}
 	
 	public Boolean winner(Player player) {
-		if (dealer.handValue() == 21) {return false; }
+		if (dealer.handValue() == 21) {
+			player.playerLose();
+			dealer.playerWin();
+			return false; }
 		if((player.handValue() > dealer.handValue() && player.handValue() <= 21)
 				|| (dealer.playerBust() == true && player.playerBust() == false) ){
 			player.playerWin();
+			dealer.playerLose();
 			return true;
 			
 		}
 		else if (dealer.handValue() >= player.handValue() || player.playerBust() == true)
 	{
-			player.playerLose();	
+			player.playerLose();
+			dealer.playerWin();
 			return false;
 				}
 		return  false;

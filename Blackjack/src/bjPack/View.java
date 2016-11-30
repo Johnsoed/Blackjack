@@ -23,6 +23,10 @@ JLabel[] dealersHand = new JLabel [6];
 JPanel aiPlayers = new JPanel(new BorderLayout());
 JLabel[] ai1Hand = new JLabel [6];
 JLabel[] ai2Hand = new JLabel [6];
+JLabel playerPoints = new JLabel();
+JLabel dealerPoints = new JLabel();
+JLabel ai1Points = new JLabel();
+JLabel ai2Points = new JLabel();
 
 JButton hitButton = new JButton(); 
 JButton stayButton = new JButton();
@@ -75,6 +79,20 @@ for (int i = 0; i  < 6; i++) {
 
 
 dealerCards.add(dealerName);
+ai1Cards.add(ai1Name);
+ai2Cards.add(ai2Name);
+
+playerPoints.setText("" + newGame.player1.points);
+dealerPoints.setText("" + newGame.dealer.points);
+
+ai1Points.setText("" + newGame.ai1.points);
+ai2Points.setText("" + newGame.ai2.points);
+playerCards.add(playerPoints);
+dealerCards.add(dealerPoints);
+ai1Cards.add(ai1Points);
+ai2Cards.add(ai2Points);
+
+
 
 add (mainPanel);
 mainPanel.add(gamePanel,BorderLayout.CENTER);
@@ -141,7 +159,11 @@ public void playerView() {
 	
 	
 public  void reset() {
-	
+	playerPoints.setText("" + newGame.player1.points);
+	dealerPoints.setText("" + newGame.dealer.points);
+
+	ai1Points.setText("" + newGame.ai1.points);
+	ai2Points.setText("" + newGame.ai2.points);
 		newGame.reset();
 		newGame.initialDeal();
 		
@@ -149,6 +171,7 @@ public  void reset() {
 		dealerView();
 		aiView(newGame.ai1,ai1Hand);
 		aiView(newGame.ai2,ai2Hand);
+
 	}
 
 private class start implements ActionListener {
