@@ -22,10 +22,10 @@ public class Game {
 	}
 	
 	public void initialDeal() {
-		player1.bet();
-		dealer.bet();		
-		ai1.bet();				
-		ai2.bet();			
+		player1.bet(10);
+		dealer.bet(30);		
+		ai1.bet(10);				
+		ai2.bet(10);			
 		
 		player1.addCard(deck.deal());
 		player1.hand.AddtoHand(deck.deal());
@@ -96,7 +96,7 @@ public class Game {
 	public Boolean winner(Player player) {
 		if (dealer.handValue() == 21) {
 			player.playerLose();
-			dealer.playerWin();
+			dealer.dealerWin(player.bet);
 			return false; }
 		if((player.handValue() > dealer.handValue() && player.handValue() <= 21)
 				|| (dealer.playerBust() == true && player.playerBust() == false) ){
@@ -108,7 +108,7 @@ public class Game {
 		else if (dealer.handValue() >= player.handValue() || player.playerBust() == true)
 	{
 			player.playerLose();
-			dealer.playerWin();
+			dealer.dealerWin(player.bet);
 			return false;
 				}
 		return  false;

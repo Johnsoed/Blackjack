@@ -75,14 +75,14 @@ public class Player {
 			return false;
 	}
 	
-	public void bet(){
+	public void bet(int bet){
 		if(points < 10){
 			System.out.println("Not enough points to bet!");
 		}
 		else{
 			System.out.println("bet - " + bet);
-			points = points - 10;
-			bet = 10;
+			points = points - bet;
+			this.bet = bet;
 		}
 	}
 
@@ -108,6 +108,11 @@ public class Player {
 	
 	public void userHit(boolean hit) {
 		userHit = hit;
+	}
+	
+	public void dealerWin(int playerBet) {
+		points = points + playerBet * 2;
+		
 	}
 
 	public void points(int i) {
