@@ -16,7 +16,7 @@ public class Deck {
 	 * Deck() creates an array of Card objects and shuffles them. 
 	 * @throws IOException 
 	 *********************************************************************/
-	public Deck() throws IOException {
+	public Deck(){
     	newDeck();
  		Collections.shuffle(deckList);
 	}
@@ -27,7 +27,7 @@ public class Deck {
 	 * @return Card a card from the deck. 
 	 * @throws IOException 
 	 *********************************************************************/
-	public Card deal() throws IOException{
+	public Card deal(){
 		//safety. so we don't pull from empty deck
 		if(deckCount() > 0){
 			Card dealtCard;
@@ -59,7 +59,7 @@ public class Deck {
 		Collections.shuffle(deckList);
 	}
 	
-	public void newDeck() throws IOException{
+	public void newDeck(){
 		deckList = new ArrayList<Card>();
 		for ( Suit suit: Suit.values() ) {
     		for ( Rank value: Rank.values() ) {

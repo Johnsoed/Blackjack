@@ -24,8 +24,7 @@ public class Card {
 	private final Rank value;
 	/*variable for objects Suit*/
 	private final Suit suit;
-	
-	private final BufferedImage image;
+
 
    /***********************************************************************
 	* Constructors
@@ -35,12 +34,10 @@ public class Card {
      * @param value the rank value of the object
      * @param suit the suit value of the object
      *********************************************************************/
-    public Card(Rank value, Suit suit) throws IOException {
+    public Card(Rank value, Suit suit){
 		super();
 		this.value = value;
 		this.suit = suit;
-		File imageFile = new File("src/Images", value + "-" + suit + ".png");
-		this.image = ImageIO.read(imageFile);
 	}
    /***********************************************************************
 	* Getters and Setters
@@ -57,10 +54,6 @@ public class Card {
      * @see java.lang.Object#toString()
      *********************************************************************/
     public String toString() {return value + " of " + suit;}
-    
-	public BufferedImage getImage() {
-		return image;
-	}
-    
+      
     
 }

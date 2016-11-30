@@ -17,7 +17,7 @@ public class Game {
 	
 	Player user;
 	
-	public Game() throws IOException {
+	public Game(){
 		super();
 		gameOver = false;
 		roundOver = false;
@@ -27,7 +27,7 @@ public class Game {
 		user = new Player();
 	}
 
-	public Game(int aiNum) throws IOException{
+	public Game(int aiNum){
 		this();
 		for(int i = 1; i <= aiNum; i++){
 			Player add = new Player();
@@ -35,7 +35,7 @@ public class Game {
 		}
 	}
 	
-	public void initialDeal() throws IOException{
+	public void initialDeal(){
 		//safety. so we don't pull from too small a deck
 		if(mainDeck.deckCount() < (4 + (aiPlayers.size() * 2) ) ){
 			mainDeck.newDeck();
@@ -89,13 +89,13 @@ public class Game {
 		}
 	}
 	
-	public void userHitStay(boolean hit) throws IOException{
+	public void userHitStay(boolean hit){
 		if(hit){
 			user.getHand().AddtoHand(mainDeck.deal());
 		}
 	}
 	//performs AI players hit/stay
-	public void aiHitStay() throws IOException{
+	public void aiHitStay(){
 		if(aiPlayers == null){
 			//do nothing
 		}
@@ -110,7 +110,7 @@ public class Game {
 		}
 	}
 	//performs dealer hit/stay
-	public void dealerHitStay() throws IOException{
+	public void dealerHitStay(){
 		if(dealer.playerHit()){
 			dealer.getHand().AddtoHand(mainDeck.deal());
 		}
@@ -151,7 +151,7 @@ public class Game {
 		}
 	}
 	//performs non-users hit/stay checks and actions
-	public void nonUserHitStay() throws IOException{
+	public void nonUserHitStay(){
 		aiHitStay();
 		dealerHitStay();		
 	}

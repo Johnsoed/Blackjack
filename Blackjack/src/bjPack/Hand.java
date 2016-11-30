@@ -101,7 +101,16 @@ public class Hand{
 	}
 	
 	public Card getCard(int cardNum){
-		return ihand.get(cardNum);
+		if(ihand.size() >= cardNum + 1){
+			return ihand.get(cardNum);
+		}
+		else{
+			return null;
+		}
+	}
+	
+	public int size(){
+		return ihand.size();
 	}
 
 //	@Override
