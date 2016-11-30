@@ -62,6 +62,7 @@ public class Game {
 	}
 	
 	public void round() {
+		deckCheck();
 		if (player1.userHit == true && player1.playerBust() == false) {
 		player1.addCard(deck.deal());	
 		}
@@ -132,4 +133,10 @@ public class Game {
 		deck.shuffleDeck();
 	}
 	
+	public void deckCheck() {
+		if (deck.deckList.size() < 8) {
+			deck = new Deck();
+			deck.shuffleDeck();
+		}
+	}
 }

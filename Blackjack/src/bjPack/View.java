@@ -105,8 +105,7 @@ mainPanel.add(aiPlayers,BorderLayout.SOUTH);
 
 
 reset();
-
-
+check();
 }	
 
 public void playerView() {
@@ -252,7 +251,9 @@ public void endOfGame() {
 			JOptionPane.showMessageDialog(null,"ai two has lost to the dealer");
 			}
 		reset();
+		for(int i = 0; i < 5; i++) {
 		check();
+		}
 }
 
 
