@@ -39,6 +39,8 @@ public class Card {
 	 *            the rank value of the object
 	 * @param suit
 	 *            the suit value of the object
+	 *  @param filename
+	 *  	filename for the card
 	 *********************************************************************/
 	public Card(Rank value, Suit suit, String filename) {
 		super();

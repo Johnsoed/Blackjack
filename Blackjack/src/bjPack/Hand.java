@@ -19,9 +19,8 @@ public class Hand {
 
 	public void AddtoHand(Card input) {
 		if (ihand.size() < 8) {
-		ihand.add(input);
-		}
-		else {
+			ihand.add(input);
+		} else {
 			DiscardHand();
 		}
 	}

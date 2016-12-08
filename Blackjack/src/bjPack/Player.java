@@ -123,7 +123,7 @@ public class Player {
 	out of the players points and put into "bet," if they win they win
 	equal to their bet, and get their bet back, if they lose they lose
 	the points in bet
-	@param int bet, amount to bet
+	@param bet, amount to bet
 	*****************************************************************/
 	public void bet(int bet) {
 		if (points < 10) {
@@ -165,7 +165,7 @@ public class Player {
 
 	/*****************************************************************
 	adds card in parameter to player's hand
-	@param Card card, card to be added
+	@param card, card to be added
 	*****************************************************************/
 	public void addCard(Card card) {
 		hand.AddtoHand(card);
@@ -213,7 +213,7 @@ public class Player {
 	@param n/a
 	@return returns hand
 	*****************************************************************/
-	public Hand getHand(){
+	public Hand getHand() {
 		return hand;
 	}
 	
@@ -222,7 +222,7 @@ public class Player {
 	@param n/a
 	@return winLose 
 	*****************************************************************/
-	public boolean winLose(){
+	public boolean winLose() {
 		return winLose;
 	}
 	
@@ -231,7 +231,7 @@ public class Player {
 	@param n/a
 	@return userHit 
 	*****************************************************************/
-	public boolean getUserHit(){
+	public boolean getUserHit() {
 		return userHit;
 	}
 
