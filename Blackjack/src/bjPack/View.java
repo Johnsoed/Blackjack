@@ -1,266 +1,350 @@
 package bjPack;
+/*****************************************************************
+GUI class for blackjack game, displays cards for human player,
+computer dealer, and two ai opponents, allows player to control
+game through button presses. Has hit button, stay button, and reset
+button
+@author  Edward Johnson
+@version December 8th, 2016
+*****************************************************************/
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Scanner;
 
-public class View extends JPanel{
-ImageIcon back = new ImageIcon("src/cards/blank.png");
-Game newGame = new Game();
+public class View extends JPanel {
+	/** placeholder icon for empty spot on table */
+	ImageIcon back = new ImageIcon("src/cards/blank.png");
+	/** new blackjack game object */
+	Game newGame = new Game();
+	/** panel where buttons are place */
+	JPanel buttonPanel = new JPanel();
+	/** panel for player and dealer, and their poits */
+	JPanel gamePanel = new JPanel(new BorderLayout());
+	/** panel to display players's card hand*/
+	JPanel playerCards = new JPanel();
+	/** panel for dealer's card hand*/
+	JPanel dealerCards = new JPanel();
+	/** panel to display ai1's cards*/
+	JPanel ai1Cards = new JPanel();
+	/** panel to display ai2's cards*/
+	JPanel ai2Cards = new JPanel();
+	/** name label for ai 1 */
+	JLabel ai1Name = new JLabel("Ai 1");
+	/** name label for ai 2 */
+	JLabel ai2Name = new JLabel("Ai 2");
+	/** JLabel array for player's hand */
+	JLabel[] playersHand = new JLabel[8];
+	/** JLabel array for dealer's hand */
+	JLabel[] dealersHand = new JLabel[8];
+	/** JPanel for 2 AI players */
+	JPanel aiPlayers = new JPanel(new BorderLayout());
+	/** JLabel array for ai 1's hand */
+	JLabel[] ai1Hand = new JLabel[8];
+	/** JLabel array for ai 2's hand */
+	JLabel[] ai2Hand = new JLabel[8];
+	/** JLabel for player 1's points */
+	JLabel playerPoints = new JLabel();
+	/** JLabel for dealer's points */
+	JLabel dealerPoints = new JLabel();
+	/** JLabel for ai 1's points */
+	JLabel ai1Points = new JLabel();
+	/** JLabel for ai 2's points */
+	JLabel ai2Points = new JLabel();
+	/** Jbutton for hitting */
+	JButton hitButton = new JButton();
+	/** Jbutton for staying */
+	JButton stayButton = new JButton();
+	/** Jbutton to restart game */
+	JButton restart = new JButton();
+	/** Jlabel for dealer name */
+	JLabel dealerName = new JLabel("dealer");
+	/** Jlabel for player name */
+	JLabel playerName = new JLabel("player");
 
-JPanel buttonPanel = new JPanel();
-JPanel gamePanel = new JPanel(new BorderLayout());
-JPanel playerCards = new JPanel();
-JPanel dealerCards = new JPanel();
-JPanel scorePanel = new JPanel();
-JPanel ai1Cards = new JPanel();
-JPanel ai2Cards = new JPanel();
-JLabel ai1Name = new JLabel("Ai 1");
-JLabel ai2Name = new JLabel("Ai 2");
-
-JLabel[] playersHand = new JLabel[8];
-JLabel[] dealersHand = new JLabel [8];
-JPanel aiPlayers = new JPanel(new BorderLayout());
-JLabel[] ai1Hand = new JLabel [8];
-JLabel[] ai2Hand = new JLabel [8];
-JLabel playerPoints = new JLabel();
-JLabel dealerPoints = new JLabel();
-JLabel ai1Points = new JLabel();
-JLabel ai2Points = new JLabel();
-
-JButton hitButton = new JButton(); 
-JButton stayButton = new JButton();
-JButton restart = new JButton();
-JLabel dealerName = new JLabel("dealer");
-JLabel playerName = new JLabel("player");
-
-public View() {
-buttonPanel.setBackground(new Color(0,122,0));
-playerCards.setBackground(new Color(0,122,0));
-dealerCards.setBackground(new Color(0,122,0));
-ai1Cards.setBackground(new Color(0,122,0));
-ai2Cards.setBackground(new Color(0,122,0));
-buttonPanel.setLayout(new FlowLayout());
-
-restart.setText("restart");
-hitButton.setText("hit");
-stayButton.setText("stay");
-restart.addActionListener(new restart());
-hitButton.addActionListener(new hitButton());
-stayButton.addActionListener(new stayButton());
-buttonPanel.add(hitButton);
-buttonPanel.add(stayButton);
-buttonPanel.add(restart);
-JPanel mainPanel = new JPanel(new BorderLayout());
-for (int i = 0; i  < 8; i++) {
-	playersHand[i] = new JLabel(back);
-	playersHand[i].setPreferredSize(new Dimension(72,96));
-	playerCards.add(playersHand[i]);
-}
-playerCards.add(playerName);
-for (int i = 0; i  < 8; i++) {
-	dealersHand[i] = new JLabel(back);
-	dealersHand[i].setPreferredSize(new Dimension(72,96));
-	dealerCards.add(dealersHand[i]);
-}
-
-for (int i = 0; i  < 8; i++) {
-	ai1Hand[i] = new JLabel(back);
-	ai1Hand[i].setPreferredSize(new Dimension(72,96));
-	ai1Cards.add(ai1Hand[i]);
-}
-
-for (int i = 0; i  < 8; i++) {
-	ai2Hand[i] = new JLabel(back);
-	ai2Hand[i].setPreferredSize(new Dimension(72,96));
-	ai2Cards.add(ai2Hand[i]);
-}
-
-
-
-dealerCards.add(dealerName);
-ai1Cards.add(ai1Name);
-ai2Cards.add(ai2Name);
-
-playerPoints.setText("" + newGame.player1.points);
-dealerPoints.setText("" + newGame.dealer.points);
-
-ai1Points.setText("" + newGame.ai1.points);
-ai2Points.setText("" + newGame.ai2.points);
-playerCards.add(playerPoints);
-dealerCards.add(dealerPoints);
-ai1Cards.add(ai1Points);
-ai2Cards.add(ai2Points);
-
-
-
-add (mainPanel);
-mainPanel.add(gamePanel,BorderLayout.CENTER);
-mainPanel.add(buttonPanel,BorderLayout.NORTH);
-gamePanel.add(playerCards,BorderLayout.CENTER);
-gamePanel.add(dealerCards,BorderLayout.SOUTH);
-aiPlayers.add(ai1Cards,BorderLayout.CENTER);
-aiPlayers.add(ai2Cards,BorderLayout.SOUTH);
-mainPanel.add(aiPlayers,BorderLayout.SOUTH);
-
-
-reset();
-check();
-}	
-
-public void playerView() {
-	Hand handview = newGame.player1.hand;
-	int i = 0;
-	for (Card card :handview.ihand) {
-		String filename = card.filename;
-		ImageIcon picture = new ImageIcon("src/cards/" + filename + ".png");
-		playersHand[i].setIcon(picture);
-		i++;
+	
+	/*****************************************************************
+	Constructor for view class, sets up panels, texts for buttons,
+	and background color, initial deal and check for the game
+	@params n/a
+	*****************************************************************/
+	public View() {
+		//sets color for panels
+		buttonPanel.setBackground(new Color(0, 122, 0));
+		playerCards.setBackground(new Color(0, 122, 0));
+		dealerCards.setBackground(new Color(0, 122, 0));
+		ai1Cards.setBackground(new Color(0, 122, 0));
+		ai2Cards.setBackground(new Color(0, 122, 0));
+		buttonPanel.setLayout(new FlowLayout());
+		restart.setText("restart");
+		hitButton.setText("hit");
+		stayButton.setText("stay");
+		restart.addActionListener(new restart());
+		hitButton.addActionListener(new hitButton());
+		stayButton.addActionListener(new stayButton());
+		buttonPanel.add(hitButton);
+		buttonPanel.add(stayButton);
+		buttonPanel.add(restart);
+		JPanel mainPanel = new JPanel(new BorderLayout());
+		for (int i = 0; i < 8; i++) {
+			playersHand[i] = new JLabel(back);
+			playersHand[i].setPreferredSize(new Dimension(72, 96));
+			playerCards.add(playersHand[i]);
 		}
-	for (;i < 8; i++) {
-		playersHand[i].setIcon(back);
+		playerCards.add(playerName);
+		for (int i = 0; i < 8; i++) {
+			dealersHand[i] = new JLabel(back);
+			dealersHand[i].setPreferredSize(new Dimension(72, 96));
+			dealerCards.add(dealersHand[i]);
+		}
+
+		for (int i = 0; i < 8; i++) {
+			ai1Hand[i] = new JLabel(back);
+			ai1Hand[i].setPreferredSize(new Dimension(72, 96));
+			ai1Cards.add(ai1Hand[i]);
+		}
+
+		for (int i = 0; i < 8; i++) {
+			ai2Hand[i] = new JLabel(back);
+			ai2Hand[i].setPreferredSize(new Dimension(72, 96));
+			ai2Cards.add(ai2Hand[i]);
+		}
+
+		dealerCards.add(dealerName);
+		ai1Cards.add(ai1Name);
+		ai2Cards.add(ai2Name);
+
+		playerPoints.setText("" + newGame.getPlayer1().getPoints());
+		dealerPoints.setText("" + newGame.getdealer().getPoints());
+
+		ai1Points.setText("" + newGame.getai1().getPoints());
+		ai2Points.setText("" + newGame.getai2().getPoints());
+		playerCards.add(playerPoints);
+		dealerCards.add(dealerPoints);
+		ai1Cards.add(ai1Points);
+		ai2Cards.add(ai2Points);
+
+		add(mainPanel);
+		mainPanel.add(gamePanel, BorderLayout.CENTER);
+		mainPanel.add(buttonPanel, BorderLayout.NORTH);
+		gamePanel.add(playerCards, BorderLayout.CENTER);
+		gamePanel.add(dealerCards, BorderLayout.SOUTH);
+		aiPlayers.add(ai1Cards, BorderLayout.CENTER);
+		aiPlayers.add(ai2Cards, BorderLayout.SOUTH);
+		mainPanel.add(aiPlayers, BorderLayout.SOUTH);
+
+		reset();
+		check();
 	}
-	}
-	public void dealerView() {
-		Hand handview = newGame.dealer.hand;
+
+	/*****************************************************************
+	Method to view player's hand, uses filenames in cards to pull
+	the correct image to set as the card's icon, does this for
+	each card in the hand. 
+	@params n/a
+	*****************************************************************/
+	public void playerView() {
+		Hand handview = newGame.getPlayer1().getHand();
 		int i = 0;
-		for (Card card :handview.ihand) {
+		for (Card card : handview.ihand) {
+			String filename = card.filename;
+			ImageIcon picture = new ImageIcon("src/cards/" + filename + ".png");
+			playersHand[i].setIcon(picture);
+			i++;
+		}
+		for (; i < 8; i++) {
+			playersHand[i].setIcon(back);
+		}
+	}
+
+	/*****************************************************************
+	Method to view dealer's hand, uses filenames in cards to pull
+	the correct image to set as the card's icon, does this for
+	each card in the hand. 
+	@params n/a
+	*****************************************************************/
+	public void dealerView() {
+		Hand handview = newGame.getdealer().getHand();
+		int i = 0;
+		for (Card card : handview.ihand) {
 			String filename = card.filename;
 			ImageIcon picture = new ImageIcon("src/cards/" + filename + ".png");
 			dealersHand[i].setIcon(picture);
 			i++;
-		}	
-		for (;i < 8; i++) {
+		}
+		for (; i < 8; i++) {
 			dealersHand[i].setIcon(back);
-		}	
-}
-	
-	
+		}
+	}
+
+	/*****************************************************************
+	Method to view dealer's hand, uses filenames in cards to pull
+	the correct image to set as the card's icon, does this for
+	each card in the hand. 
+	@param Player ai, ai player to display cards for
+	@param JLabel[] Aiand, JLabel array to update
+	*****************************************************************/
 	public void aiView(Player ai, JLabel[] aiHand) {
-		Hand handview = ai.hand;
+		Hand handview = ai.getHand();
 		int i = 0;
-		for (Card card :handview.ihand) {
+		for (Card card : handview.ihand) {
 			String filename = card.filename;
 			ImageIcon picture = new ImageIcon("src/cards/" + filename + ".png");
 			aiHand[i].setIcon(picture);
 			i++;
-		}	
-		for (;i < 8; i++) {
+		}
+		for (; i < 8; i++) {
 			aiHand[i].setIcon(back);
-		}	
-}
-	
-	
-public  void reset() {
-	
-	playerPoints.setText("" + newGame.player1.points);
-	dealerPoints.setText("" + newGame.dealer.points);
+		}
+	}
 
-	ai1Points.setText("" + newGame.ai1.points);
-	ai2Points.setText("" + newGame.ai2.points);
+	/*****************************************************************
+	Resets the game, starts new round, deals new cards, sets points
+	back to default
+	@params n/a
+	*****************************************************************/
+	public void reset() {
+
+		playerPoints.setText("" + newGame.getPlayer1().getPoints());
+		dealerPoints.setText("" + newGame.getdealer().getPoints());
+
+		ai1Points.setText("" + newGame.getai1().getPoints());
+		ai2Points.setText("" + newGame.getai2().getPoints());
 		newGame.reset();
 		newGame.initialDeal();
-		
+
 		playerView();
 		dealerView();
-		aiView(newGame.ai1,ai1Hand);
-		aiView(newGame.ai2,ai2Hand);
+		aiView(newGame.getai1(), ai1Hand);
+		aiView(newGame.getai2(), ai2Hand);
 	}
-	
-public void check() {
+
+	/*****************************************************************
+	checks if player or dealer has 21 at the start of the game, if so,
+	triggers the end of the game
+	@params n/a
+	*****************************************************************/
+	public void check() {
 		if (newGame.check21s() == true) {
 			endOfGame();
-}
+		}
 	}
 
-private class restart implements ActionListener {
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getSource() == restart) {
-			newGame.pointsReset(); 
-			reset();
-			
-		}
-		
-}
-		
-}
-private class hitButton implements ActionListener {
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getSource() == hitButton) {
-		newGame.hitOrStay(true);
-		newGame.round();
-		playerView();
-		dealerView();
-		aiView(newGame.ai1,ai1Hand);
-		aiView(newGame.ai2,ai2Hand);
-		Boolean endGame = newGame.stayBustWin();
-		if (endGame == true) {
-			endOfGame();
-		
-	
-		}
-		}
-}
+	/*****************************************************************
+	action listener object for the restart button
+	*****************************************************************/
+	private class restart implements ActionListener {
+		@Override
+	/*****************************************************************
+	resets game upon getting signal from reset button
+	@params ActionEvent arg0, signal from button listener
+	*****************************************************************/
+		public void actionPerformed(ActionEvent arg0) {
+			if (arg0.getSource() == restart) {
+				newGame.pointsReset();
+				reset();
 
-}
-private class stayButton implements ActionListener {
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		if (arg0.getSource() == stayButton) {
-		while (true) {
-		newGame.hitOrStay(false);
-		newGame.round();
-		playerView();
-		dealerView();
-		aiView(newGame.ai1,ai1Hand);
-		aiView(newGame.ai2,ai2Hand);
-		Boolean endGame = newGame.stayBustWin();
-		if (endGame == true) {
-			endOfGame();
-			break;
-		
-		
-		}
-
-	}
- }
-	}
-	}
-
-
-public void endOfGame() {
-	Boolean message = newGame.winner(newGame.player1);
-	if (message == true){
-	JOptionPane.showMessageDialog(null,"player one has beaten the dealer");
-	}
-	if (message == false) {
-		JOptionPane.showMessageDialog(null,"player one has lost to the dealer");
-	}
-
-		message = newGame.winner(newGame.ai1);
-		if (message == true){
-		JOptionPane.showMessageDialog(null,"ai one has beaten the dealer");
-		}
-		if (message == false) {
-			JOptionPane.showMessageDialog(null,"ai one has lost to the dealer");
-		}
-
-		message = newGame.winner(newGame.ai2);
-		if (message == true){
-		JOptionPane.showMessageDialog(null,"ai two has beaten the dealer");
-		}
-		if (message == false) {
-			JOptionPane.showMessageDialog(null,"ai two has lost to the dealer");
 			}
-		reset();
-		for(int i = 0; i < 5; i++) {
-		check();
+
 		}
-}
 
+	}
 
+	
+	/*****************************************************************
+	action listener object for the hit button
+	*****************************************************************/
+	private class hitButton implements ActionListener {
+		@Override
+	/*****************************************************************
+	performs "hit" when player clicks the hit button, player draws 
+	a new card, and the computer controller players take their turns
+	as well, checks if game has ended it calls the game end
+	method if it has
+	@params ActionEvent arg0, signal from button listener
+	*****************************************************************/
+		public void actionPerformed(ActionEvent arg0) {
+			if (arg0.getSource() == hitButton) {
+				newGame.hitOrStay(true);
+				newGame.round();
+				playerView();
+				dealerView();
+				aiView(newGame.getai1(), ai1Hand);
+				aiView(newGame.getai2(), ai2Hand);
+				Boolean endGame = newGame.stayBustWin();
+				if (endGame == true) {
+					endOfGame();
 
+				}
+			}
+		}
+
+	}
+
+	/*****************************************************************
+	action listener object for the stay button
+	*****************************************************************/
+	private class stayButton implements ActionListener {
+		@Override
+	/*****************************************************************
+	performs "stay" when the player clicks the stay button. The player
+	no longer draws new cards and the game goes on automatically
+	afterwords until dealer has won or lost. 
+	@params ActionEvent arg0, signal from button listener
+	*****************************************************************/
+		public void actionPerformed(ActionEvent arg0) {
+			if (arg0.getSource() == stayButton) {
+				while (true) {
+					newGame.hitOrStay(false);
+					newGame.round();
+					playerView();
+					dealerView();
+					aiView(newGame.getai1(), ai1Hand);
+					aiView(newGame.getai2(), ai2Hand);
+					Boolean endGame = newGame.stayBustWin();
+					if (endGame == true) {
+						endOfGame();
+						break;
+
+					}
+				}
+			}
+		}
+	}
+
+	/*****************************************************************
+	in case of game over, this method is called to display who wins 
+	and loses, redistribute points, and reset the game. 
+	@params n/a
+	*****************************************************************/
+	public void endOfGame() {
+		Boolean message = newGame.winner(newGame.getPlayer1());
+		if (message == true) {
+			JOptionPane.showMessageDialog(null, "player one has beaten the dealer");
+		}
+		if (message == false) {
+			JOptionPane.showMessageDialog(null, "player one has lost to the dealer");
+		}
+
+		message = newGame.winner(newGame.getai1());
+		if (message == true) {
+			JOptionPane.showMessageDialog(null, "ai one has beaten the dealer");
+		}
+		if (message == false) {
+			JOptionPane.showMessageDialog(null, "ai one has lost to the dealer");
+		}
+
+		message = newGame.winner(newGame.getai2());
+		if (message == true) {
+			JOptionPane.showMessageDialog(null, "ai two has beaten the dealer");
+		}
+		if (message == false) {
+			JOptionPane.showMessageDialog(null, "ai two has lost to the dealer");
+		}
+		reset();
+		for (int i = 0; i < 5; i++) {
+			check();
+		}
+	}
 
 }

@@ -12,46 +12,62 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 public class Card {
-	/*enumerated Rank values*/
-	public enum Rank {TWO, THREE, FOUR, FIVE, SIX, SEVEN,
-		EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE }
-	/*enumerated Suit values*/
-	public enum Suit { CLUBS, DIAMONDS, HEARTS, SPADES }
-	/*variable for objects Rank*/
-	private final Rank value;
-	/*variable for objects Suit*/
-	private final Suit suit;
-	
-	public String filename;
-	
+	/* enumerated Rank values */
+	public enum Rank {
+		TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE
+	}
 
-   /***********************************************************************
-	* Constructors
-	**********************************************************************/
-    /**********************************************************************
-     * Card() constructor.
-     * @param value the rank value of the object
-     * @param suit the suit value of the object
-     *********************************************************************/
-    public Card(Rank value, Suit suit, String filename) {
+	/* enumerated Suit values */
+	public enum Suit {
+		CLUBS, DIAMONDS, HEARTS, SPADES
+	}
+
+	/* variable for objects Rank */
+	private final Rank value;
+	/* variable for objects Suit */
+	private final Suit suit;
+
+	public String filename;
+
+	/***********************************************************************
+	 * Constructors
+	 **********************************************************************/
+	/**********************************************************************
+	 * Card() constructor.
+	 * 
+	 * @param value
+	 *            the rank value of the object
+	 * @param suit
+	 *            the suit value of the object
+	 *********************************************************************/
+	public Card(Rank value, Suit suit, String filename) {
 		super();
 		this.value = value;
 		this.suit = suit;
 		this.filename = filename;
 	}
-   /***********************************************************************
-	* Getters and Setters
-	**********************************************************************/	
-    /**********************************************************************
-     * @return objects rank value
-     *********************************************************************/
-    public Rank rank() {return value;}
-    /**********************************************************************
-     * @return objects suit value
-     *********************************************************************/
-    public Suit suit() {return suit;}
-    /**********************************************************************
-     * @see java.lang.Object#toString()
-     *********************************************************************/
-    public String toString() {return value + " of " + suit;}
+
+	/***********************************************************************
+	 * Getters and Setters
+	 **********************************************************************/
+	/**********************************************************************
+	 * @return objects rank value
+	 *********************************************************************/
+	public Rank rank() {
+		return value;
+	}
+
+	/**********************************************************************
+	 * @return objects suit value
+	 *********************************************************************/
+	public Suit suit() {
+		return suit;
+	}
+
+	/**********************************************************************
+	 * @see java.lang.Object#toString()
+	 *********************************************************************/
+	public String toString() {
+		return value + " of " + suit;
+	}
 }
