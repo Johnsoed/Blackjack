@@ -1,24 +1,29 @@
 package bjPack;
-/*****************************************************************
-Player object for use in blackjack game, each players has points,
-a hand of cards, booleans for if they have stayed or won/lost,
-and bet amount. 
-@author  Edward Johnson, Anthony Dowling, Logan Crowe
-@version December 8th, 2016
-*****************************************************************/
-import java.util.List;
 
+
+
+/*****************************************************************
+ * Player object for use in blackjack game, each players has 
+ * points,a hand of cards, booleans for if they have stayed 
+ * or won/lost, and bet amount. 
+ * @author  Edward Johnson, Anthony Dowling, Logan Crowe
+ * @version December 8th, 2016
+*****************************************************************/
 public class Player {
+	/** players hand of cards. */ 
 	private Hand hand = new Hand();
+	/** players points. */ 
 	private int points = 100;
+	/** player's bet. */ 
 	private int bet = 0;
+	/** boolean for if player has won/lost the game. */ 
 	private boolean winLose;
+	/** boolean for if player has hit or stayed. */ 
 	private boolean userHit = true;
 
 	/*****************************************************************
-	constructor for player, creates player with a hand array of cards
-	in this case, empty
-	@param n/a
+	Constructor for player, creates player with a hand array of cards
+	in this case, empty.
 	*****************************************************************/
 	public Player() {
 		// Hand hand = new Hand();
@@ -27,16 +32,16 @@ public class Player {
 	}
 
 	/*****************************************************************
-	constructor for player, creates player object with particular hand
-	@param n/a
+	 * constructor for player, 
+	 * creates player object with certain hand.
+	@param hand sets hand to set playerhand to
 	*****************************************************************/
 	public Player(Hand hand) {
 		this.hand = hand;
 	}
 
 	/*****************************************************************
-	 * returns value of player's hand
-	@param n/a
+	 * Returns value of player's hand.
 	@return handcount, in value of play
 	*****************************************************************/
 	public int handValue() {
@@ -44,11 +49,14 @@ public class Player {
 	}
 
 	/*****************************************************************
-	determines whether computer dealer hits or stays, using the 
-	other player's handcount. If the dealer's hand is less than 17
-	or if the player's hand is larger, dealer hits, else, they stay
-	@param n/a
-	@returns returns true if dealer player hits, false if they don't
+	 * determines whether computer dealer hits or stays, using the 
+	 * other player's handcount. If the dealer's hand is less than 17
+	 * or if the player's hand is larger, dealer hits, else, they stay
+	 
+	 * @param otherplayer the player dealer looks at to decide 
+	 * 	whether to hit or stay
+	 * 
+	 * @return returns true if dealer player hits, false if they don't
 	*****************************************************************/
 	public boolean playerHit(Player otherplayer) {
 		if (otherplayer.handValue() > handValue()) {
@@ -58,9 +66,8 @@ public class Player {
 
 			userHit = true;
 			return true;
-		}
-
-		else if (handValue() > 17 && handValue() < 20 && hand.hasAce() == true) {
+		} else if (handValue() > 17 && handValue() < 20 
+				&& hand.hasAce() == true) {
 			userHit = true;
 			return true;
 		} else {
@@ -71,59 +78,63 @@ public class Player {
 	}
 
 	/*****************************************************************
-	determines whether aiplayer hits or stays, if their hand value is
-	less than 17 they hit, else, they stay
-	@param n/a
+	 * determines whether aiplayer hits or stays, if their hand value 
+	 * is less than 17 they hit, else, they stay.
+	 
+	 * @return return's true if hand handcount is less than 17, false 
+	 * if hand value is greater. 
 	*****************************************************************/
 	public Boolean aiHit() {
 		if (handValue() < 17) {
 			return true;
-		} else
+		} else {
 			return false;
+		}
 	}
 
 	/*****************************************************************
-	determines whether player has busted, if their hand value is
-	greater than 21, they've busted, otherwise they haven't
-	@param n/a
-	@returns if player has busted, returns true, else, returns false
+	 * Determines whether player has busted, if their hand value is
+	 * greater than 21, they've busted, otherwise they haven't.
+	 * @return Returns true if player has busted, false if not. 
 	*****************************************************************/
 	public boolean playerBust() {
 		if (handValue() > 21) {
 			return true;
-		} else
+		} else {
 			return false;
+		}
 	}
 
 	/*****************************************************************
-	prints hand list in console, for use in testing
-	@param n/a
+	 * prints hand list in console, for use in testing.
 	*****************************************************************/
 	public void printList() {
-		for (Card card : hand.ihand) {
+		for (Card card : hand.getihand()) {
 			System.out.print(card.toString());
 			System.out.print("  ");
 		}
 	}
 
 	/*****************************************************************
-	sees if player has blackjack, a hand value equal to 21
-	@param n/a
-	@return returns true if player has 21, false if they don't
+	 * Sees if player has blackjack, a hand value equal to 21.
+	 
+	 * @return returns true if player has 21, false if they don't
 	*****************************************************************/
 	public boolean blackJack() {
 		if (handValue() == 21) {
 			return true;
-		} else
+		} else {
 			return false;
+		}
 	}
 
 	/*****************************************************************
-	bets points equal to number passed to method, points are taken
-	out of the players points and put into "bet," if they win they win
-	equal to their bet, and get their bet back, if they lose they lose
-	the points in bet
-	@param bet, amount to bet
+	 * Bets points equal to number passed to method, points are taken
+	 * out of the players points and put into "bet," if they win they 
+	 * win equal to their bet, and get their bet back, if they 
+	 * lose they lose the points in bet.
+	 
+	 * @param bet amount to bet
 	*****************************************************************/
 	public void bet(int bet) {
 		if (points < 10) {
@@ -135,64 +146,65 @@ public class Player {
 	}
 
 	/*****************************************************************
-	returns points
-	@param n/a
-	@return points
+	 * returns points.
+	 
+	 * @return points
 	*****************************************************************/
 	public int getPoints() {
 		return points;
 	}
 
 	/*****************************************************************
-	returns bet
-	@param n/a
-	@return bet
+	 * Returns bet.
+	 
+	 * @return bet
 	*****************************************************************/
 	public int getBet() {
 		return bet;
 	}
 
 	/*****************************************************************
-	when called, adds double the players bets to their points,
-	essentially, giving them their bet back and adding an amount
-	equal to what they bet. I;e, if they bet 10 points in win, they
-	get their ten points back +10 as winnings
-	@param n/a
+	 * when called, adds double the players bets to their points,
+	 * essentially, giving them their bet back and adding an amount
+	 * equal to what they bet. I;e, if they bet 10 points in win, the
+	 * 	get their ten points back +10 as winnings
 	*****************************************************************/
 	public void playerWin() {
 		points = points + (10 * 2);
 	}
 
 	/*****************************************************************
-	adds card in parameter to player's hand
-	@param card, card to be added
+	 * Adds card in parameter to player's hand.
+	
+	 * @param card card to be added
 	*****************************************************************/
 	public void addCard(Card card) {
 		hand.AddtoHand(card);
 	}
 
 	/*****************************************************************
-	 * lose condition. Written by anthony, never implemented by me
+	 * lose condition. Written by Anthony, never implemented by me
 	 * player simply loses their bet upon losing
-	@param n/a
 	*****************************************************************/
 	public void playerLose() {
 
 	}
 
 	/*****************************************************************
-	sets userHit, if userHit is true, player has not stayed and is
-	still in the game
-	@param hit, true or false value to set userHit to
+	 * Sets userHit, if userHit is true, player has not stayed and is
+	 * still in the game.
+	 
+	 * @param hit true or false value to set userHit to
 	*****************************************************************/
 	public void userHit(boolean hit) {
 		userHit = hit;
 	}
 
 	/*****************************************************************
-	upon dealer beating a player, they get 20 points, 10 to cover
-	their bet + the 10 point bet of the player they beat. 
-	@param int playerBet, bet the player is making against them
+	 * upon dealer beating a player, they get 20 points, 10 to cover
+	 * their bet + the 10 point bet of the player they beat. 
+	 
+	 * @param playerBet bet the player is making against them
 	*****************************************************************/
 	public void dealerWin(int playerBet) {
 		points = points + 10 * 2;
@@ -200,8 +212,9 @@ public class Player {
 	}
 
 	/*****************************************************************
-	sets points
-	@param i, player's points are set to i
+	 * 	Sets points.
+	 
+	 * @param i player's points are set to i
 	*****************************************************************/
 	public void points(int i) {
 		points = i;
@@ -209,35 +222,36 @@ public class Player {
 	}
 	
 	/*****************************************************************
-	getter for hand
-	@param n/a
-	@return returns hand
+	 * Getter for hand.
+	 
+	 * @return returns hand
 	*****************************************************************/
 	public Hand getHand() {
 		return hand;
 	}
 	
 	/*****************************************************************
-	returns winlose boolean
-	@param n/a
-	@return winLose 
+	 * 	Returns winlose boolean.
+	 
+	 * @return winLose 
 	*****************************************************************/
 	public boolean winLose() {
 		return winLose;
 	}
 	
 	/*****************************************************************
-	returns userHit boolean
-	@param n/a
-	@return userHit 
+	 * 	Returns userHit boolean.
+	 
+	 * @return userHit 
 	*****************************************************************/
 	public boolean getUserHit() {
 		return userHit;
 	}
 
 	/*****************************************************************
-	setter for points
-	@param i, value to set points to
+	 * Setter for points.
+	 
+	 * @param i value to set points to
 	*****************************************************************/
 	public void setPoints(int i) {
 		points = i;

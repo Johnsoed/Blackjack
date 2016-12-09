@@ -2,21 +2,36 @@ package bjPack;
 
 import java.util.*;
 
+/*****************************************************************
+ * Hand class Holds and allows manipulation of array of card 
+ * Objects, the player's hand of cards while playing the game.
+ * @author  Edward Johnson, Anthony Dowling, Logan Crowe
+ * @version December 8th, 2016
+*****************************************************************/
 public class Hand {
+	/** list of cards. */
+	private List<Card> ihand;
 
-	List<Card> ihand;
-
+	/** constructor for hand when given no paramters.*/ 
 	public Hand() {
 		super();
 		ihand = new ArrayList<Card>();
 	}
-
+	
+	/** constructor for hand, sets hand to cardlist in parameter.
+	 *  @param hand handlist to set as hand
+	 */ 
 	public Hand(List<Card> hand) {
 		super();
 		ihand = new ArrayList<Card>();
 		ihand = hand;
 	}
 
+	/** method to insert a new card into card.
+	 * Has else statement in case hand get too full
+	 * 
+	 * @param input the card to be added
+	 */
 	public void AddtoHand(Card input) {
 		if (ihand.size() < 8) {
 			ihand.add(input);
@@ -25,15 +40,16 @@ public class Hand {
 		}
 	}
 
+	/** method to discard hand. */
 	public void DiscardHand() {
 		ihand = new ArrayList<Card>();
 	}
 
 	/*************************************************************************
-	 * handCount() takes a hand, iterates through the cards in the hand, and
-	 * counts the values of the cards, adding them and returning the hand count
 	 * 
-	 * @param hand
+	 * handCount takes a hand, iterates through the cards in the hand, and
+	 * counts the values of the cards, adding them, returning the hand count.
+	 * 
 	 *            the hand you wish to count
 	 * @return handCount int representing the hands value
 	 *************************************************************************/
@@ -82,16 +98,15 @@ public class Hand {
 				break;
 			}
 		}
-		if (hasAce() == true && count > 21)
+		if (hasAce() == true && count > 21) {
 			count -= 10;
+		}
 		return count;
 	}
 
 	/************************************************************************
-	 * hasAce() checks a hand for an Ace value and returns true if found
+	 * hasAce() checks a hand for an Ace value and returns true if found.
 	 * 
-	 * @param hand
-	 *            the hand to be checked for an Ace
 	 * @return boolean true if Ace Card() is found in hand
 	 ************************************************************************/
 	public boolean hasAce() {
@@ -106,6 +121,14 @@ public class Hand {
 			}
 		}
 		return bool;
+	}
+	
+	/** returns ihand list of cards. 
+	 * 
+	 * @return ihand returns hand list 
+	 */
+	public List<Card> getihand() {
+		return ihand;
 	}
 
 }

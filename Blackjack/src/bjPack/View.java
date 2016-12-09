@@ -1,72 +1,72 @@
 package bjPack;
-/*****************************************************************
-GUI class for blackjack game, displays cards for human player,
-computer dealer, and two ai opponents, allows player to control
-game through button presses. Has hit button, stay button, and reset
-button
-@author  Edward Johnson
-@version December 8th, 2016
-*****************************************************************/
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Scanner;
 
+
+/*****************************************************************
+ * GUI class for blackjack game, displays cards for human player,
+ * computer dealer, and two ai opponents, allows player to control
+ * game through button presses. Has hit button, stay button, 
+ * and reset button
+ * @author  Edward Johnson
+ * @version December 8th, 2016
+*****************************************************************/
 public class View extends JPanel {
-	/** placeholder icon for empty spot on table */
-	ImageIcon back = new ImageIcon("src/cards/blank.png");
-	/** new blackjack game object */
-	Game newGame = new Game();
-	/** panel where buttons are place */
-	JPanel buttonPanel = new JPanel();
-	/** panel for player and dealer, and their poits */
-	JPanel gamePanel = new JPanel(new BorderLayout());
-	/** panel to display players's card hand*/
-	JPanel playerCards = new JPanel();
-	/** panel for dealer's card hand*/
-	JPanel dealerCards = new JPanel();
-	/** panel to display ai1's cards*/
-	JPanel ai1Cards = new JPanel();
-	/** panel to display ai2's cards*/
-	JPanel ai2Cards = new JPanel();
-	/** name label for ai 1 */
-	JLabel ai1Name = new JLabel("Ai 1");
-	/** name label for ai 2 */
-	JLabel ai2Name = new JLabel("Ai 2");
-	/** JLabel array for player's hand */
-	JLabel[] playersHand = new JLabel[8];
-	/** JLabel array for dealer's hand */
-	JLabel[] dealersHand = new JLabel[8];
-	/** JPanel for 2 AI players */
-	JPanel aiPlayers = new JPanel(new BorderLayout());
-	/** JLabel array for ai 1's hand */
-	JLabel[] ai1Hand = new JLabel[8];
-	/** JLabel array for ai 2's hand */
-	JLabel[] ai2Hand = new JLabel[8];
-	/** JLabel for player 1's points */
-	JLabel playerPoints = new JLabel();
-	/** JLabel for dealer's points */
-	JLabel dealerPoints = new JLabel();
-	/** JLabel for ai 1's points */
-	JLabel ai1Points = new JLabel();
-	/** JLabel for ai 2's points */
-	JLabel ai2Points = new JLabel();
-	/** Jbutton for hitting */
-	JButton hitButton = new JButton();
-	/** Jbutton for staying */
-	JButton stayButton = new JButton();
-	/** Jbutton to restart game */
-	JButton restart = new JButton();
-	/** Jlabel for dealer name */
-	JLabel dealerName = new JLabel("dealer");
-	/** Jlabel for player name */
+	/** placeholder icon for empty spot on table. */
+   private ImageIcon back = new ImageIcon("src/cards/blank.png");
+	/** new blackjack game object. */
+	private Game newGame = new Game();
+	/** panel where buttons are place. */
+	private JPanel buttonPanel = new JPanel();
+	/** panel for player and dealer, and their points. */
+	private JPanel gamePanel = new JPanel(new BorderLayout());
+	/** panel to display players's card hand. */
+	private JPanel playerCards = new JPanel();
+	/** panel for dealer's card hand. */
+	private JPanel dealerCards = new JPanel();
+	/** panel to display ai1's cards. */
+	private JPanel ai1Cards = new JPanel();
+	/** panel to display ai2's cards. */
+	private JPanel ai2Cards = new JPanel();
+	/** name label for ai 1. */
+	private JLabel ai1Name = new JLabel("Ai 1");
+	/** name label for ai 2. */
+	private JLabel ai2Name = new JLabel("Ai 2");
+	/** JLabel array for player's hand. */
+	private JLabel[] playersHand = new JLabel[8];
+	/** JLabel array for dealer's hand. */
+	private JLabel[] dealersHand = new JLabel[8];
+	/** JPanel for 2 AI players. */
+	private JPanel aiPlayers = new JPanel(new BorderLayout());
+	/** JLabel array for ai 1's hand. */
+	private JLabel[] ai1Hand = new JLabel[8];
+	/** JLabel array for ai 2's hand. */
+	private JLabel[] ai2Hand = new JLabel[8];
+	/** JLabel for player 1's points. */
+	private JLabel playerPoints = new JLabel();
+	/** JLabel for dealer's points. */
+	private JLabel dealerPoints = new JLabel();
+	/** JLabel for ai 1's points. */
+	private JLabel ai1Points = new JLabel();
+	/** JLabel for ai 2's points. */
+	private JLabel ai2Points = new JLabel();
+	/** Jbutton for hitting. */
+	private JButton hitButton = new JButton();
+	/** JButton for staying. */
+	private JButton stayButton = new JButton();
+	/** JButton to restart game. */
+	private JButton restart = new JButton();
+	/** JLabel for dealer name. */
+	private JLabel dealerName = new JLabel("dealer");
+	private /** Jlabel for player name. */
 	JLabel playerName = new JLabel("player");
 
 	
 	/*****************************************************************
-	Constructor for view class, sets up panels, texts for buttons,
-	and background color, initial deal and check for the game
-	@params n/a
+	 * Constructor for view class, sets up panels, texts for buttons,
+	 * and background color, initial deal and check for the game.
 	*****************************************************************/
 	public View() {
 		//sets color for panels
@@ -138,16 +138,15 @@ public class View extends JPanel {
 	}
 
 	/*****************************************************************
-	Method to view player's hand, uses filenames in cards to pull
-	the correct image to set as the card's icon, does this for
-	each card in the hand. 
-	@params n/a
+	 * Method to view player's hand, uses filenames in cards to pull
+	 * the correct image to set as the card's icon, does this for
+	 * each card in the hand. 
 	*****************************************************************/
 	public void playerView() {
 		Hand handview = newGame.getPlayer1().getHand();
 		int i = 0;
-		for (Card card : handview.ihand) {
-			String filename = card.filename;
+		for (Card card : handview.getihand()) {
+			String filename = card.getfilename();
 			ImageIcon picture = new ImageIcon("src/cards/" + filename + ".png");
 			playersHand[i].setIcon(picture);
 			i++;
@@ -158,16 +157,15 @@ public class View extends JPanel {
 	}
 
 	/*****************************************************************
-	Method to view dealer's hand, uses filenames in cards to pull
-	the correct image to set as the card's icon, does this for
-	each card in the hand. 
-	@params n/a
+	 * 	Method to view dealer's hand, uses filenames in cards to pull
+	 * the correct image to set as the card's icon, does this for
+	 * each card in the hand. 
 	*****************************************************************/
 	public void dealerView() {
 		Hand handview = newGame.getdealer().getHand();
 		int i = 0;
-		for (Card card : handview.ihand) {
-			String filename = card.filename;
+		for (Card card : handview.getihand()) {
+			String filename = card.getfilename();
 			ImageIcon picture = new ImageIcon("src/cards/" + filename + ".png");
 			dealersHand[i].setIcon(picture);
 			i++;
@@ -178,17 +176,19 @@ public class View extends JPanel {
 	}
 
 	/*****************************************************************
-	Method to view dealer's hand, uses filenames in cards to pull
-	the correct image to set as the card's icon, does this for
-	each card in the hand. 
-	@param Player ai, ai player to display cards for
-	@param JLabel[] Aiand, JLabel array to update
+	 * Method to view dealer's hand, uses filenames in cards to pull
+	 * the correct image to set as the card's icon, does this for
+	 * each card in the hand. 
+	 * 
+	 * @param ai AI player to display cards for
+	 * 
+	 * @param aiHand JLabel array to update
 	*****************************************************************/
 	public void aiView(Player ai, JLabel[] aiHand) {
 		Hand handview = ai.getHand();
 		int i = 0;
-		for (Card card : handview.ihand) {
-			String filename = card.filename;
+		for (Card card : handview.getihand()) {
+			String filename = card.getfilename();
 			ImageIcon picture = new ImageIcon("src/cards/" + filename + ".png");
 			aiHand[i].setIcon(picture);
 			i++;
@@ -199,9 +199,8 @@ public class View extends JPanel {
 	}
 
 	/*****************************************************************
-	Resets the game, starts new round, deals new cards, sets points
-	back to default
-	@params n/a
+	 * 	Resets the game, starts new round, deals new cards, sets points
+	 * back to default.
 	*****************************************************************/
 	public void reset() {
 
@@ -220,9 +219,8 @@ public class View extends JPanel {
 	}
 
 	/*****************************************************************
-	checks if player or dealer has 21 at the start of the game, if so,
-	triggers the end of the game
-	@params n/a
+	 * checks if player or dealer has 21 at the start of the game, 
+	 * if so, triggers the end of the game.
 	*****************************************************************/
 	public void check() {
 		if (newGame.check21s() == true) {
@@ -231,13 +229,13 @@ public class View extends JPanel {
 	}
 
 	/*****************************************************************
-	action listener object for the restart button
+	action listener object for the restart button.
 	*****************************************************************/
 	private class restart implements ActionListener {
 		@Override
 	/*****************************************************************
-	resets game upon getting signal from reset button
-	@params ActionEvent arg0, signal from button listener
+	 * resets game upon getting signal from reset button
+	 * @params ActionEvent arg0, signal from button listener
 	*****************************************************************/
 		public void actionPerformed(ActionEvent arg0) {
 			if (arg0.getSource() == restart) {
@@ -252,16 +250,16 @@ public class View extends JPanel {
 
 	
 	/*****************************************************************
-	action listener object for the hit button
+	 * action listener object for the hit button.
 	*****************************************************************/
 	private class hitButton implements ActionListener {
 		@Override
 	/*****************************************************************
-	performs "hit" when player clicks the hit button, player draws 
-	a new card, and the computer controller players take their turns
-	as well, checks if game has ended it calls the game end
-	method if it has
-	@params ActionEvent arg0, signal from button listener
+	 * performs "hit" when player clicks the hit button, player draws 
+	 * a new card, and the computer controller players take their turns
+	 * 	as well, checks if game has ended it calls the game end
+	 * 	method if it has.
+	 * @param ActionEvent arg0, signal from button listener
 	*****************************************************************/
 		public void actionPerformed(ActionEvent arg0) {
 			if (arg0.getSource() == hitButton) {
@@ -282,15 +280,15 @@ public class View extends JPanel {
 	}
 
 	/*****************************************************************
-	action listener object for the stay button
+	 * 	action listener object for the stay button.
 	*****************************************************************/
 	private class stayButton implements ActionListener {
 		@Override
 	/*****************************************************************
-	performs "stay" when the player clicks the stay button. The player
-	no longer draws new cards and the game goes on automatically
-	afterwords until dealer has won or lost. 
-	@params ActionEvent arg0, signal from button listener
+	 * performs "stay" when the player clicks the stay button. 
+	 * The player no longer draws new cards and the game goes on 
+	 * automatically afterwords until dealer has won or lost. 
+	 * @param ActionEvent arg0, signal from button listener
 	*****************************************************************/
 		public void actionPerformed(ActionEvent arg0) {
 			if (arg0.getSource() == stayButton) {
@@ -313,25 +311,28 @@ public class View extends JPanel {
 	}
 
 	/*****************************************************************
-	in case of game over, this method is called to display who wins 
-	and loses, redistribute points, and reset the game. 
-	@params n/a
+	 * in case of game over, this method is called to display who wins 
+	 * and loses, redistribute points, and reset the game. 
 	*****************************************************************/
 	public void endOfGame() {
 		Boolean message = newGame.winner(newGame.getPlayer1());
 		if (message == true) {
-			JOptionPane.showMessageDialog(null, "player one has beaten the dealer");
+			JOptionPane.showMessageDialog(
+					null, "player one has beaten the dealer");
 		}
 		if (message == false) {
-			JOptionPane.showMessageDialog(null, "player one has lost to the dealer");
+			JOptionPane.showMessageDialog(
+					null, "player one has lost to the dealer");
 		}
 
 		message = newGame.winner(newGame.getai1());
 		if (message == true) {
-			JOptionPane.showMessageDialog(null, "ai one has beaten the dealer");
+			JOptionPane.showMessageDialog(
+					null, "ai one has beaten the dealer");
 		}
 		if (message == false) {
-			JOptionPane.showMessageDialog(null, "ai one has lost to the dealer");
+			JOptionPane.showMessageDialog(
+					null, "ai one has lost to the dealer");
 		}
 
 		message = newGame.winner(newGame.getai2());
@@ -339,7 +340,8 @@ public class View extends JPanel {
 			JOptionPane.showMessageDialog(null, "ai two has beaten the dealer");
 		}
 		if (message == false) {
-			JOptionPane.showMessageDialog(null, "ai two has lost to the dealer");
+			JOptionPane.showMessageDialog(
+					null, "ai two has lost to the dealer");
 		}
 		reset();
 		for (int i = 0; i < 5; i++) {

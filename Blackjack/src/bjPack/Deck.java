@@ -1,17 +1,16 @@
-/***************************************************************************
-* Deck() - used to create a 'deck' of Card objects using an array. 
-* @author Logan Crowe, Edward Johnson, Anthony Dowling
-***************************************************************************/
 package bjPack;
-
 import java.util.*;
 import bjPack.Card.Rank;
 import bjPack.Card.Suit;
 
+/***************************************************************************
+* Deck() - used to create a 'deck' of Card objects using an array. 
+* @author Logan Crowe, Edward Johnson, Anthony Dowling
+***************************************************************************/
 public class Deck {
 
-	/* the Arraylist that holds the deck */
-	List<Card> deckList;
+	/** the Arraylist that holds the deck. */
+	private List<Card> deckList;
 
 	/*********************************************************************
 	 * Deck() creates an array of Card objects and shuffles them.
@@ -24,7 +23,6 @@ public class Deck {
 	/*********************************************************************
 	 * Deal() is used to deal a single card from the deck. The decks size is
 	 * revalued to take into account the missing card.
-	 * 
 	 * @return Card a card from the deck.
 	 *********************************************************************/
 	public Card deal() {
@@ -57,10 +55,17 @@ public class Deck {
 		Collections.shuffle(deckList);
 	}
 
+	/** returns deckList.
+	 * 
+	 * @return deckList, list of cards in deck
+	 */
+	public List<Card> getdeckList() { 
+		return deckList;
+	}
+	
 	/*********************************************************************
-	 constructor for deck, generates 52 card deck, generates appropriate
-	 filename for each card to be used by the gui
-	 @param n/a
+	 *  Constructor for deck, generates 52 card deck, generates appropriate
+	 *  filename for each card to be used by the gui.
 	 *********************************************************************/
 	public void newDeck() {
 		deckList = new ArrayList<Card>();

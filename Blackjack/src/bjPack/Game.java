@@ -1,26 +1,30 @@
 package bjPack;
 
-/*****************************************************************
-Game class for blackjack game, handles the actual running
-of the game, interacting with the players and deck
-@author  Edward Johnson
-@version December 8th, 2016
-*****************************************************************/
-import java.util.ArrayList;
-import java.util.List;
 
+
+
+
+/*****************************************************************
+ * Game class for blackjack game, handles the actual running
+ * of the game, interacting with the players and deck.
+ * @author  Edward Johnson
+ * @version December 8th, 2016
+*****************************************************************/
 public class Game {
+	/** The human player, plays game through GUI interface. */
 	private Player player1;
+	/** AI dealer, plays against human player and two AI players. */
 	private Player dealer;
+	/** 52 card deck. */
 	private Deck deck;
+	/** first AI player, plays against dealer. */
 	private Player ai1;
+	/** second AI player, plays. */
 	private Player ai2;
 
 	/*****************************************************************
 	 * Constructor for game class, initializes the human and ai players, ai
-	 * dealer, sets dealer's point to default 500
-	 * 
-	 * @param n/a
+	 * dealer, sets dealer's point to default 500.
 	 *****************************************************************/
 	public Game() {
 
@@ -38,8 +42,6 @@ public class Game {
 	 * method to peform initial dealer, deals each player 2 cards, does bets for
 	 * each player, each non-dealer player bets 10, dealer bets 30, 10 points
 	 * against each other player.
-	 * 
-	 * @param n/a
 	 *****************************************************************/
 	public void initialDeal() {
 		player1.bet(10);
@@ -58,10 +60,9 @@ public class Game {
 	}
 
 	/*****************************************************************
-	 * sets user hit to true or false depending on input
+	 * sets user hit to true or false depending on input.
 	 * 
-	 * @param hit,
-	 *            sets userHit in player to true or false
+	 * @param hit sets userHit in player to true or false
 	 *****************************************************************/
 	public void hitOrStay(boolean hit) {
 		player1.userHit(hit);
@@ -72,7 +73,6 @@ public class Game {
 	 * have busted, or if the player or dealer has reached 21, and returns a
 	 * boolean value.
 	 * 
-	 * @param n/a
 	 * @return returns true if game end circumstance listed above have happened,
 	 *         false if they haven't and game keeps going
 	 *****************************************************************/
@@ -97,10 +97,9 @@ public class Game {
 	}
 
 	/*****************************************************************
-	 * runs through a round of the game, checking if each player has stayed or
-	 * busted, and if they haven't deals them a card
+	 * Runs through a round of the game, checking if each player has stayed or
+	 * busted, and if they haven't deals them a card.
 	 * 
-	 * @param n/a
 	 *****************************************************************/
 	public void round() {
 		deckCheck();
@@ -108,7 +107,8 @@ public class Game {
 			player1.addCard(deck.deal());
 		}
 		if (dealer.getUserHit() == true && player1.playerBust() == false) {
-			if (dealer.playerHit(player1) == true && dealer.playerBust() == false) {
+			if (dealer.playerHit(player1) == true 
+					&& dealer.playerBust() == false) {
 				dealer.addCard(deck.deal());
 			}
 
@@ -125,8 +125,6 @@ public class Game {
 
 	/*****************************************************************
 	 * prints cards in console, only used for testing purposes.
-	 * 
-	 * @param n/a
 	 *****************************************************************/
 	public void printCards() {
 		System.out.print("player hand is");
@@ -154,13 +152,16 @@ public class Game {
 			dealer.dealerWin(player.getBet());
 			return false;
 		}
-		if ((player.handValue() > dealer.handValue() && player.handValue() <= 21)
-				|| (dealer.playerBust() == true && player.playerBust() == false)) {
+		if ((player.handValue() > dealer.handValue() 
+				&& player.handValue() <= 21)
+				|| (dealer.playerBust() == true 
+				&& player.playerBust() == false)) {
 			player.playerWin();
 			dealer.playerLose();
 			return true;
 
-		} else if (dealer.handValue() >= player.handValue() || player.playerBust() == true) {
+		} else if (dealer.handValue() >= player.handValue() 
+				|| player.playerBust() == true) {
 			player.playerLose();
 			dealer.dealerWin(player.getBet());
 			return false;
@@ -171,22 +172,21 @@ public class Game {
 	}
 
 	/*****************************************************************
-	 * checks if player or dealer has 21
+	 * checks if player or dealer has 21.
 	 * 
-	 * @param n/a
 	 * @return returns true if player or dealer has 21, false if not
 	 *****************************************************************/
 	public boolean check21s() {
 		if (player1.blackJack() == true || dealer.blackJack() == true) {
 			return true;
-		} else
+		} else {
 			return false;
+		}
 	}
 
 	/*****************************************************************
-	 * resets the game, discards player hands, remakes and reshuffles the deck.
-	 * 
-	 * @param n/a
+	 * resets the game, discards player hands, re-makes and 
+	 * re-shuffles the deck.
 	 *****************************************************************/
 	public void reset() {
 		player1.getHand().DiscardHand();
@@ -199,22 +199,19 @@ public class Game {
 	}
 
 	/*****************************************************************
-	 * checks if deck is running low on cards, creates new deck and re-shuffles
-	 * if it is
-	 * 
-	 * @param n/a
+	 * Checks if deck is running low on cards, creates new deck 
+	 * and re-shuffles if it is.
 	 *****************************************************************/
 	public void deckCheck() {
-		if (deck.deckList.size() < 8) {
+		if (deck.getdeckList().size() < 8) {
 			deck = new Deck();
 			deck.shuffleDeck();
 		}
 	}
 
 	/*****************************************************************
-	 * resets all points to reset, as if it were a new game
+	 * Resets all points to reset, as if it were a new game.
 	 * 
-	 * @param n/a
 	 *****************************************************************/
 	public void pointsReset() {
 		player1.setPoints(100);
@@ -225,9 +222,8 @@ public class Game {
 	}
 
 	/*****************************************************************
-	 * returns player1 from game
+	 * Returns player1 from game.
 	 * 
-	 * @param n/a
 	 * @return player1
 	 *****************************************************************/
 	public Player getPlayer1() {
@@ -235,9 +231,8 @@ public class Game {
 	}
 
 	/*****************************************************************
-	 * returns dealer from game
+	 * Returns dealer from game.
 	 * 
-	 * @param n/a
 	 * @return dealer
 	 *****************************************************************/
 	public Player getdealer() {
@@ -245,9 +240,8 @@ public class Game {
 	}
 
 	/*****************************************************************
-	 * returns ai1 from game
+	 * Returns ai1 from game.
 	 * 
-	 * @param n/a
 	 * @return ai1
 	 *****************************************************************/
 	public Player getai1() {
@@ -255,9 +249,8 @@ public class Game {
 	}
 
 	/*****************************************************************
-	 * returns a12 from game
+	 * returns a12 from game.
 	 * 
-	 * @param n/a
 	 * @return ai2
 	 *****************************************************************/
 	public Player getai2() {
@@ -265,9 +258,8 @@ public class Game {
 	}
 
 	/*****************************************************************
-	 * returns deck from game
+	 * Returns deck from game.
 	 * 
-	 * @param n/a
 	 * @return deck
 	 *****************************************************************/
 	public Deck getDeck() {
